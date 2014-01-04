@@ -3,3 +3,4 @@ packer_cache/
 *.box
 boot2docker.iso
 boot2docker.vdi
+Vagrantfile

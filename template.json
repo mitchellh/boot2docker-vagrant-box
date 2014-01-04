@@ -33,7 +33,6 @@
 
     "post-processors": [{
         "type": "vagrant",
-        "keep_input_artifact": true,
         "include": ["boot2docker.iso"],
         "vagrantfile_template": "vagrantfile_virtualbox.tpl"
     }]
