@@ -1,8 +1,6 @@
 Vagrant.configure("2") do |config|
   config.ssh.username = "docker"
 
-  config.vm.base_mac = "{{ .BaseMacAddress }}"
-
   # Disable synced folders because guest additions aren't available
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
