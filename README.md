@@ -11,6 +11,8 @@ If you just want to use the box, then download the latest box from
 the [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases)
 and `vagrant up` as usual!
 
+![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
+
 ## Building the Box
 
 If you want to recreate the box, rather than using the binary, then
