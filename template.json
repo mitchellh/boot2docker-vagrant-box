@@ -1,0 +1,40 @@
+{
+    "builders": [{
+        "type": "virtualbox-iso",
+        "iso_url": "boot2docker.iso",
+        "iso_checksum": "681c3aae0c54bb003fe1175f62697662",
+        "iso_checksum_type": "none",
+        "boot_wait": "5s",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff",
+        "guest_additions_mode": "disable",
+        "guest_os_type": "Linux_64",
+        "vboxmanage": [
+            ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller",
+                "--port", "0", "--device", "0",
+                "--type", "hdd", "--medium", "persistent2.vmdk"]
+        ]
+    }],
+
+    "provisioners": [{
+        "type": "file",
+        "source": "vagrant_key.pub",
+        "destination": "/tmp/vagrant_key.pub"
+    }, {
+        "type": "shell",
+        "inline": [
+            "mkdir -p ~/.ssh",
+            "cat /tmp/vagrant_key.pub >> ~/.ssh/authorized_keys",
+            "chmod 0700 ~/.ssh",
+            "chmod 0600 ~/.ssh/authorized_keys"
+        ]
+    }],
+
+    "post-processors": [{
+        "type": "vagrant",
+        "keep_input_artifact": true,
+        "include": ["boot2docker.iso"],
+        "vagrantfile_template": "vagrantfile_virtualbox.tpl"
+    }]
+}
