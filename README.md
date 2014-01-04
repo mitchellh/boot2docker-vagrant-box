@@ -8,12 +8,14 @@ most minimal Docker environment possible.
 ## Usage
 
 If you just want to use the box, then download the latest box from
-the [releases page](#) and `vagrant up` as usual!
-
-If you want to build a custom b2d box, then this repository contains
-the sources that allow you to do it in minutes.
+the [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases)
+and `vagrant up` as usual!
 
 ## Building the Box
+
+If you want to recreate the box, rather than using the binary, then
+you can use the Packer template and sources within this repository to
+do it in seconds.
 
 To build the box, first install the following prerequisites:
 
