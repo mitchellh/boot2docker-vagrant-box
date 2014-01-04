@@ -19,15 +19,15 @@
 
     "provisioners": [{
         "type": "file",
-        "source": "vagrant_key.pub",
-        "destination": "/tmp/vagrant_key.pub"
+        "source": "files/",
+        "destination": "/tmp"
     }, {
         "type": "shell",
         "inline": [
-            "mkdir -p ~/.ssh",
-            "cat /tmp/vagrant_key.pub >> ~/.ssh/authorized_keys",
-            "chmod 0700 ~/.ssh",
-            "chmod 0600 ~/.ssh/authorized_keys"
+            "sudo cp /tmp/sshd_config /var/lib/docker/vm/ssh/sshd_config",
+            "sudo cp /tmp/vagrant_key.pub /var/lib/docker/vm/ssh/docker_authorized_keys",
+            "sudo chown docker:docker /var/lib/docker/vm/ssh/docker_authorized_keys",
+            "sudo chmod 0600 /var/lib/docker/vm/ssh/docker_authorized_keys"
         ]
     }],
 

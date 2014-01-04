@@ -1,6 +1,6 @@
 boot2docker.box: boot2docker.iso
 	VBoxManage closemedium disk persistent.vmdk
-	VBoxManage closemedium disk persistent2.vmdk
+	-VBoxManage closemedium disk persistent2.vmdk
 	rm -rf persistent2.vmdk
 	VBoxManage clonehd persistent.vmdk persistent2.vmdk
 	packer build template.json
