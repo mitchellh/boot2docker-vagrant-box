@@ -1,4 +1,5 @@
 {
+    "description": "Create Vagrant boxes for the boot2docker distribution",
     "builders": [{
         "type": "virtualbox-iso",
         "iso_url": "boot2docker.iso",
@@ -10,14 +11,32 @@
         "shutdown_command": "sudo poweroff",
         "guest_additions_mode": "disable",
         "guest_os_type": "Linux_64",
-        "vboxmanage": [
-            ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller",
-                "--port", "0", "--device", "0",
-                "--type", "hdd", "--medium", "persistent2.vmdk"]
-        ]
+        "vm_name": "boot2docker",
+        "headless": "true",
+        "disk_size": 40960
+    }, {
+        "type": "vmware-iso",
+        "iso_url": "boot2docker.iso",
+        "iso_checksum": "681c3aae0c54bb003fe1175f62697662",
+        "iso_checksum_type": "none",
+        "boot_wait": "5s",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff",
+        "guest_os_type": "other3xlinux-64",
+        "vm_name": "boot2docker",
+        "headless": "true",
+        "disk_size": 40960
     }],
 
     "provisioners": [{
+        "type": "shell",
+        "scripts": [
+            "scripts/prepare-disk.sh",
+            "scripts/reboot.sh",
+            "scripts/reboot-complete.sh"
+        ]
+    }, {
         "type": "file",
         "source": "files/",
         "destination": "/tmp"
@@ -34,7 +53,7 @@
     "post-processors": [{
         "type": "vagrant",
         "include": ["boot2docker.iso"],
-        "vagrantfile_template": "vagrantfile_virtualbox.tpl",
-        "output": "boot2docker.box"
+        "vagrantfile_template": "vagrantfile.tpl",
+        "output": "boxes/{{.Provider}}/boot2docker.box"
     }]
 }
