@@ -9,7 +9,7 @@
         "ssh_password": "tcuser",
         "shutdown_command": "sudo poweroff",
         "guest_additions_mode": "disable",
-        "guest_os_type": "Linux_64",
+        "guest_os_type": "Linux26_64",
         "vboxmanage": [
             ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller",
                 "--port", "0", "--device", "0",
