@@ -24,10 +24,10 @@
     }, {
         "type": "shell",
         "inline": [
-            "sudo cp /tmp/sshd_config /var/lib/docker/vm/ssh/sshd_config",
-            "sudo cp /tmp/vagrant_key.pub /var/lib/docker/vm/ssh/docker_authorized_keys",
-            "sudo chown docker:docker /var/lib/docker/vm/ssh/docker_authorized_keys",
-            "sudo chmod 0600 /var/lib/docker/vm/ssh/docker_authorized_keys"
+            "sudo cp /tmp/sshd_config /var/lib/boot2docker/ssh/sshd_config",
+            "sudo cp /tmp/vagrant_key.pub /var/lib/boot2docker/ssh/docker_authorized_keys",
+            "sudo chown docker:docker /var/lib/boot2docker/ssh/docker_authorized_keys",
+            "sudo chmod 0600 /var/lib/boot2docker/ssh/docker_authorized_keys"
         ]
     }],
 
