@@ -2,8 +2,8 @@
     "builders": [{
         "type": "virtualbox-iso",
         "iso_url": "boot2docker.iso",
-        "iso_checksum": "681c3aae0c54bb003fe1175f62697662",
-        "iso_checksum_type": "none",
+        "iso_checksum": "522fc919ef97ed60c221b1a99a65ff2f",
+        "iso_checksum_type": "md5",
         "boot_wait": "5s",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
