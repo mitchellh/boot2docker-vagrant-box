@@ -6,11 +6,12 @@ boot2docker.box: boot2docker.iso
 	packer build template.json
 
 boot2docker.iso:
-	curl -LO https://github.com/steeve/boot2docker/releases/download/v0.4.0/boot2docker.iso
+	curl -LO https://github.com/steeve/boot2docker/releases/download/v0.5.4/boot2docker.iso
 
 clean:
 	rm -f boot2docker.iso
 	rm -f *.box
 	rm -rf output-*/
+	rm -rf persistent2.vmdk
 
 .PHONY: clean
