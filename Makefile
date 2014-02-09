@@ -12,5 +12,6 @@ clean:
 	rm -f boot2docker.iso
 	rm -f *.box
 	rm -rf output-*/
+	rm -rf persistent2.vmdk
 
 .PHONY: clean

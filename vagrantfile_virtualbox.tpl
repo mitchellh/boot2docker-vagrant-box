@@ -15,5 +15,6 @@ Vagrant.configure("2") do |config|
       "--type", "dvddrive",
       "--medium", File.expand_path("../boot2docker.iso", __FILE__),
     ]
+
   end
 end

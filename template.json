@@ -2,19 +2,14 @@
     "builders": [{
         "type": "virtualbox-iso",
         "iso_url": "boot2docker.iso",
-        "iso_checksum": "681c3aae0c54bb003fe1175f62697662",
-        "iso_checksum_type": "none",
+        "iso_checksum": "522fc919ef97ed60c221b1a99a65ff2f",
+        "iso_checksum_type": "md5",
         "boot_wait": "5s",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
         "shutdown_command": "sudo poweroff",
         "guest_additions_mode": "disable",
-        "guest_os_type": "Linux_64",
-        "vboxmanage": [
-            ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller",
-                "--port", "0", "--device", "0",
-                "--type", "hdd", "--medium", "persistent2.vmdk"]
-        ]
+        "guest_os_type": "Linux_64"
     }],
 
     "provisioners": [{
@@ -24,16 +19,24 @@
     }, {
         "type": "shell",
         "inline": [
-            "sudo cp /tmp/sshd_config /var/lib/boot2docker/ssh/sshd_config",
-            "sudo cp /tmp/vagrant_key.pub /var/lib/boot2docker/ssh/docker_authorized_keys",
-            "sudo chown docker:docker /var/lib/boot2docker/ssh/docker_authorized_keys",
-            "sudo chmod 0600 /var/lib/boot2docker/ssh/docker_authorized_keys"
+            "(echo x; echo c; echo 1024; echo r; echo n; echo p; echo 1; echo; echo; echo w) | sudo fdisk /dev/sda",
+            "sudo mkfs.ext4 -L boot2docker-data /dev/sda1",
+            "sudo mkdir -p /mnt/sda1",
+            "sudo mount /dev/sda1 /mnt/sda1",
+            "sudo mkdir -p /mnt/sda1/var/lib",
+            "sudo cp -R /var/lib/docker /mnt/sda1/var/lib/docker",
+            "sudo mkdir -p /mnt/sda1/var/lib/boot2docker/ssh/",
+            "sudo cp /tmp/sshd_config /mnt/sda1/var/lib/boot2docker/ssh/sshd_config",
+            "sudo cp /tmp/vagrant_key.pub /mnt/sda1/var/lib/boot2docker/ssh/docker_authorized_keys",
+            "sudo chown docker:docker /mnt/sda1/var/lib/boot2docker/ssh/docker_authorized_keys",
+            "sudo chmod 0600 /mnt/sda1/var/lib/boot2docker/ssh/docker_authorized_keys"
+
         ]
     }],
 
     "post-processors": [{
         "type": "vagrant",
-        "include": ["boot2docker.iso"],
+        "include": ["boot2docker.iso","persistent2.vmdk"],
         "vagrantfile_template": "vagrantfile_virtualbox.tpl",
         "output": "boot2docker.box"
     }]
