@@ -9,4 +9,4 @@ StrictModes no
 
 # The docker user has a specific authorized keys file
 Match User docker
-    AuthorizedKeysFile	/var/lib/docker/vm/ssh/docker_authorized_keys
+    AuthorizedKeysFile	/var/lib/boot2docker/ssh/docker_authorized_keys
