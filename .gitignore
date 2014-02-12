@@ -1,6 +1,6 @@
 .DS_Store
+.vagrant/
 packer_cache/
 *.box
-boot2docker.iso
-boot2docker.vdi
-Vagrantfile
+b2d.iso
+boot2docker-vagrant.iso

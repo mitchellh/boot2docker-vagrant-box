@@ -19,13 +19,27 @@ and `vagrant up` as usual! Or, if you don't want to leave your terminal:
 ## Building the Box
 
 If you want to recreate the box, rather than using the binary, then
-you can use the Packer template and sources within this repository to
-do it in seconds.
+you can use the scripts and Packer template within this repository to
+do so in seconds.
 
 To build the box, first install the following prerequisites:
 
   * [Packer](http://www.packer.io) (at least version 0.5.1)
-  * [VirtualBox](http://www.virtualbox.org)
+  * [VirtualBox](http://www.virtualbox.org) or VMware
+  * [Vagrant](http://www.vagrantup.com)
 
-Then, just run `make`. The resulting box will be named "boot2docker.box".
-The entire process to make the box takes about 20 seconds.
+Then follow the steps:
+
+```
+$ vagrant up
+...
+$ vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
+...
+$ vagrant destroy --force
+...
+$ packer build template.json
+...
+```
+
+You can restrict only VirtualBox or VMware by specifying the `-only` flag
+to Packer.

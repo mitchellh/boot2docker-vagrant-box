@@ -1,44 +1,29 @@
 {
     "builders": [{
         "type": "virtualbox-iso",
-        "iso_url": "boot2docker.iso",
-        "iso_checksum": "522fc919ef97ed60c221b1a99a65ff2f",
-        "iso_checksum_type": "md5",
+        "iso_url": "boot2docker-vagrant.iso",
+        "iso_checksum_type": "none",
         "boot_wait": "5s",
-        "ssh_username": "docker",
-        "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff",
         "guest_additions_mode": "disable",
         "guest_os_type": "Linux_64",
-        "vboxmanage": [
-            ["storagectl", "{{.Name}}", "--name", "SATA", "--add", "sata",
-                "--hostiocache", "on"],
-            ["storageattach", "{{.Name}}", "--storagectl", "SATA",
-                "--port", "0", "--device", "0",
-                "--type", "dvddrive", "--medium", "boot2docker.iso"],
-            ["storageattach", "{{.Name}}", "--storagectl", "SATA",
-                "--port", "1", "--device", "0",
-                "--type", "hdd", "--medium", "persistent2.vmdk"]
-        ]
-    }],
-
-    "provisioners": [{
-        "type": "file",
-        "source": "files/",
-        "destination": "/tmp"
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff"
     }, {
-        "type": "shell",
-        "inline": [
-            "sudo cp /tmp/sshd_config /var/lib/boot2docker/ssh/sshd_config",
-            "sudo cp /tmp/vagrant_key.pub /var/lib/boot2docker/ssh/docker_authorized_keys",
-            "sudo chown docker:docker /var/lib/boot2docker/ssh/docker_authorized_keys",
-            "sudo chmod 0600 /var/lib/boot2docker/ssh/docker_authorized_keys"
-        ]
+        "type": "vmware-iso",
+        "iso_url": "boot2docker-vagrant.iso",
+        "iso_checksum_type": "none",
+        "boot_wait": "5s",
+        "guest_os_type": "other3xlinux-64",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff"
     }],
 
     "post-processors": [{
         "type": "vagrant",
-        "vagrantfile_template": "vagrantfile_virtualbox.tpl",
-        "output": "boot2docker.box"
+        "include": ["boot2docker-vagrant.iso"],
+        "vagrantfile_template": "vagrantfile.tpl",
+        "output": "boot2docker_{{.Provider}}.box"
     }]
 }
