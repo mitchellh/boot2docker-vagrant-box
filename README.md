@@ -11,7 +11,7 @@ If you just want to use the box, then download the latest box from
 the [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases)
 and `vagrant up` as usual! Or, if you don't want to leave your terminal:
 
-    $ vagrant init boot2docker https://github.com/mitchellh/boot2docker-vagrant-box/releases/download/v0.4.0/boot2docker.box
+    $ vagrant init boot2docker https://github.com/mitchellh/boot2docker-vagrant-box/releases/download/v0.5.4/boot2docker_virtualbox.box
     $ vagrant up
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
