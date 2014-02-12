@@ -5,6 +5,9 @@ boot2docker.box: boot2docker.iso
 	VBoxManage clonehd persistent.vmdk persistent2.vmdk
 	packer build template.json
 
+boot2docker_vmware.box: boot2docker.iso
+	packer build template-vmware.json
+
 boot2docker.iso:
 	curl -LO https://github.com/steeve/boot2docker/releases/download/v0.5.4/boot2docker.iso
 

@@ -1,0 +1,48 @@
+{
+    "builders": [{
+        "type": "vmware-iso",
+        "iso_url": "boot2docker.iso",
+        "iso_checksum": "681c3aae0c54bb003fe1175f62697662",
+        "iso_checksum_type": "none",
+        "boot_wait": "5s",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff",
+        "guest_os_type": "other3xlinux-64",
+        "vmx_data": {
+            "bios.bootOrder": "CDROM",
+            "ide1:1.present": "TRUE",
+            "ide1:1.devicetype": "cdrom-image",
+            "ide1:1.filename": "boot2docker.iso"
+        }
+    }],
+
+    "provisioners": [{
+        "type": "file",
+        "source": "files/",
+        "destination": "/tmp"
+    }, {
+        "type": "shell",
+        "inline": [
+            "sudo dd if=/tmp/sda-mbr.bin of=/dev/sda",
+            "sudo hdparm -z /dev/sda",
+            "sudo mkfs.ext4 /dev/sda1",
+            "sudo mkdir /mnt/docker",
+            "sudo mount /dev/sda1 /mnt/docker",
+            "sudo cp /tmp/sshd_config /var/lib/docker/vm/ssh/sshd_config",
+            "sudo cp /tmp/vagrant_key.pub /var/lib/docker/vm/ssh/docker_authorized_keys",
+            "sudo chown docker:docker /var/lib/docker/vm/ssh/docker_authorized_keys",
+            "sudo chmod 0600 /var/lib/docker/vm/ssh/docker_authorized_keys",
+            "sudo cp -a /var/lib/docker /mnt",
+            "sudo umount /mnt/docker",
+            "sudo rm -r /mnt/docker"
+        ]
+    }],
+
+    "post-processors": [{
+        "type": "vagrant",
+        "include": ["boot2docker.iso"],
+        "vagrantfile_template": "vagrantfile_virtualbox.tpl",
+        "output": "boot2docker_vmware.box"
+    }]
+}
