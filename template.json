@@ -20,6 +20,11 @@
         "shutdown_command": "sudo poweroff"
     }],
 
+    "provisioners": [{
+      "type": "shell",
+      "inline": ["mkfs.ext4 -F -L boot2docker-data /dev/sda"]
+    }],
+
     "post-processors": [{
         "type": "vagrant",
         "include": ["boot2docker-vagrant.iso"],
