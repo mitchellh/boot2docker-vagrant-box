@@ -57,11 +57,15 @@ echo "/etc/rc.d/vagrant" >> ${EXTRACT_DIR}/opt/bootsync.sh
 #--------------------------------------------------------------------
 # Installing fig for docker dev
 #--------------------------------------------------------------------
-# Getting and installing setuptools and pip
-# wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
-# /usr/local/bin/python2.7 ez_setup.py
-# /usr/local/bin/easy_install-2.7 pip
-# /usr/local/bin/pip2.7 install -U fig
+cat <<EOF > ${EXTRACT_DIR}/etc/rc.d/fig
+curl -L https://github.com/orchardup/fig/releases/download/0.3.0/darwin > /usr/local/bin/fig
+chmod +x /usr/local/bin/fig
+EOF
+chmod +x ${EXTRACT_DIR}/etc/rc.d/fig
+
+
+# Configure boot to add public key
+echo "/etc/rc.d/fig" >> ${EXTRACT_DIR}/opt/bootsync.sh
 
 
 #--------------------------------------------------------------------

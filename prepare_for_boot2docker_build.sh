@@ -33,7 +33,7 @@ sed -i 's/wget -O b2d.iso/#wget -O b2d.iso/g' /vagrant/build-iso.sh
 
 cp /tmp/boot2docker/boot2docker.iso /vagrant/b2d.iso
 
-sudo bash /vagrant/build-iso.sh
+cd /vagrant && sudo bash /vagrant/build-iso.sh
 
 sed -i 's/#B2D_URL=/B2D_URL=/g' /vagrant/build-iso.sh
 sed -i 's/#wget -O b2d.iso/wget -O b2d.iso/g' /vagrant/build-iso.sh
