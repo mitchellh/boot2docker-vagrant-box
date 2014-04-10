@@ -7,14 +7,18 @@ most minimal Docker environment possible.
 
 ## Usage
 
-If you just want to use the box, then download the latest box from
-the [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases)
-and `vagrant up` as usual! Or, if you don't want to leave your terminal:
+The box is available on
+[Vagrant Cloud](https://vagrantcloud.com/mitchellh/boot2docker), making
+it very easy to use it:
 
-    $ vagrant init boot2docker https://github.com/mitchellh/boot2docker-vagrant-box/releases/download/v0.5.4-1/boot2docker_virtualbox.box
+    $ vagrant init mitchellh/boot2docker
     $ vagrant up
-    
-On OS X, to use the docker client, simply `export DOCKER_HOST=localhost`. You should then be able to to run `docker version` from the host.
+
+If you want the actual box file, you can download it from the
+[releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
+
+On OS X, to use the docker client, simply `export DOCKER_HOST=localhost`.
+You should then be able to to run `docker version` from the host.
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
