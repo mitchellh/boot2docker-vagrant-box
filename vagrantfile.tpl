@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
   config.ssh.username = "docker"
 
   # Expose the Docker port
-  config.vm.network "forwarded_port", guest: 4243, host: 4243
+  config.vm.network "forwarded_port", guest: 4243, host: 4243, auto_correct: true
 
   # Attach the ISO
   config.vm.provider "virtualbox" do |v|
