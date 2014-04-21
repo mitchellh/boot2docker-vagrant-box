@@ -10,8 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu-1204-docker-misheshka"
-  config.vm.box_url = "https://dl.dropboxusercontent.com/s/lz7hwjx5utle8ty/ubuntu1204-docker.box"
+  config.vm.box = "chef/ubuntu-12.04-i386"
 
   config.cache.auto_detect = true
   
