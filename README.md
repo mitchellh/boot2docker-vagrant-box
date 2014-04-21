@@ -1,18 +1,23 @@
-# WiP from dduportal
+# What will you find here ?
 
 My goal is to run boot2docker as a dev environment into vagrant with these constraints :
-- Vagrant is running on Windows 7/8 x64 with virtualbox provider (no vbox tools, no built-in NFS, how to share contents beetween Win and b2d ? vagrant-winnfsd ?)
+- Vagrant is running on Windows 7/8 x64 with virtualbox provider 
 - We want to use fig (http://orchardup.github.io/fig/) for dealing with docker
 - We can run into a corporate env, with an HTTP proxy
 
-So this fork of mitchellh is going to fully build b2d from the original github, customize our iso and generate a vagrant box.
+> See below how to build.
+> See the CHANGELOG.md for history.
 
-... WIP ...
+## Done :
+- Using virtual box shared folder (using https://github.com/boot2docker/boot2docker/issues/282) for working by default with vagrant
+
+## Todo :
 - Need to add etc profile to docker dameon in order to auto load proxy if configured
-- Moving basebox to docker 0.8.x
-- Using a docker polipo image, in order to cache downloaded content accross multi builds
-- Integrate fig install (tester manually into b2d, need to inject with mitchellh customization script )
-- Test test test !  
+- Integrate fig install (with python)
+- Adding bats test to guarantee functional stability across quick chanegs of b2d.
+- Try Hyper-V provider and SMB shared folders on Windows.
+
+# MitchellH official documentation below:
 
 # boot2docker Vagrant Box
 
