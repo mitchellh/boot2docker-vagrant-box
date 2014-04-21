@@ -6,7 +6,8 @@
 set -e
 set -x
 
-B2D_URL="https://github.com/boot2docker/boot2docker/releases/download/v0.8.0/boot2docker.iso"
+#B2D_URL="https://github.com/boot2docker/boot2docker/releases/download/v0.8.0/boot2docker.iso"
+B2D_URL="https://dl.dropboxusercontent.com/u/12014139/boot2docker.iso"
 
 apt-get -y update
 apt-get install -y genisoimage
@@ -16,6 +17,14 @@ apt-get install -y genisoimage
 #--------------------------------------------------------------------
 # Download boot2docker
 wget -O b2d.iso ${B2D_URL}
+
+
+#--------------------------------------------------------------------
+# B2D
+#--------------------------------------------------------------------
+# Download boot2docker
+[ -f b2d.iso ] || wget -O b2d.iso ${B2D_URL}
+
 
 # Mount it up
 rm -rf /tmp/boot
@@ -47,26 +56,20 @@ KEY
 chmod 0600 /home/docker/.ssh/authorized_keys
 
 chown -R docker:staff /home/docker/.ssh
+
 EOF
 chmod +x ${EXTRACT_DIR}/etc/rc.d/vagrant
 
-# Configure boot to add public key
-echo "/etc/rc.d/vagrant" >> ${EXTRACT_DIR}/opt/bootsync.sh
-
-
-#--------------------------------------------------------------------
-# Installing fig for docker dev
-#--------------------------------------------------------------------
-cat <<EOF > ${EXTRACT_DIR}/etc/rc.d/fig
-curl -L https://github.com/orchardup/fig/releases/download/0.3.0/darwin > /usr/local/bin/fig
-chmod +x /usr/local/bin/fig
+# Script for loading vboxsf at boot
+cat <<EOF > ${EXTRACT_DIR}/etc/rc.d/vboxsf
+# Autoload vboxsf kernel module for sharing folders
+modprobe vboxsf
 EOF
-chmod +x ${EXTRACT_DIR}/etc/rc.d/fig
+chmod +x ${EXTRACT_DIR}/etc/rc.d/vboxsf
 
-
-# Configure boot to add public key
-echo "/etc/rc.d/fig" >> ${EXTRACT_DIR}/opt/bootsync.sh
-
+# Configure boot to use our custom scripts
+echo "/etc/rc.d/vagrant" >> ${EXTRACT_DIR}/opt/bootsync.sh
+echo "/etc/rc.d/vboxsf" >> ${EXTRACT_DIR}/opt/bootsync.sh
 
 #--------------------------------------------------------------------
 # Package
