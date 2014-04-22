@@ -17,8 +17,7 @@ it very easy to use it:
 If you want the actual box file, you can download it from the
 [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
 
-On OS X, to use the docker client, simply `export DOCKER_HOST=localhost`.
-You should then be able to to run `docker version` from the host.
+On OS X, to use the docker client, follow the directions here: http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to export `DOCKER_HOST`. You should then be able to to run `docker version` from the host.
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
