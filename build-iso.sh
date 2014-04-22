@@ -12,12 +12,6 @@ B2D_URL="https://dl.dropboxusercontent.com/u/12014139/boot2docker.iso"
 apt-get -y update
 apt-get install -y genisoimage
 
-#--------------------------------------------------------------------
-# B2D
-#--------------------------------------------------------------------
-# Download boot2docker
-wget -O b2d.iso ${B2D_URL}
-
 
 #--------------------------------------------------------------------
 # B2D
@@ -41,6 +35,9 @@ mkdir -p ${EXTRACT_DIR}
 pushd ${EXTRACT_DIR}
 lzma -dc /tmp/initrd.img | cpio -i -H newc -d
 popd
+
+
+find ${EXTRACT_DIR}
 
 #--------------------------------------------------------------------
 # Customization
@@ -67,7 +64,20 @@ modprobe vboxsf
 EOF
 chmod +x ${EXTRACT_DIR}/etc/rc.d/vboxsf
 
+# If a custom profile script exists, we'll copy it inside b2d box
+# Use it when you have a corporate proxy for example
+if [[ -f "./custom_profile.sh" ]];then
+	echo "Found a custom_profile script, pushing into the b2d box."
+	cp "./custom_profile.sh" "${EXTRACT_DIR}/etc/profile.d/"
+	chmod a+x "${EXTRACT_DIR}/etc/profile.d/"
+	sed -i 's#/etc/rc.d/docker#ln -s /etc/profile.d/custom_profile.sh /var/lib/boot2docker/profile\n/etc/rc.d/docker#g' ${EXTRACT_DIR}/opt/bootsync.sh
+	echo "# Using custom profile script" >> ${EXTRACT_DIR}/opt/bootsync.sh
+	#echo "ln -s /etc/profile.d/custom_profile.sh /var/lib/boot2docker/profile" >> ${EXTRACT_DIR}/opt/bootsync.sh
+	#echo "/usr/local/etc/init.d/docker restart" >> ${EXTRACT_DIR}/opt/bootsync.sh
+fi
+
 # Configure boot to use our custom scripts
+echo "# Custom rc.d scripts" >> ${EXTRACT_DIR}/opt/bootsync.sh
 echo "/etc/rc.d/vagrant" >> ${EXTRACT_DIR}/opt/bootsync.sh
 echo "/etc/rc.d/vboxsf" >> ${EXTRACT_DIR}/opt/bootsync.sh
 
