@@ -1,4 +1,8 @@
-## 21/04/2104
+## 23/04/2014
+- Adding custom_profile mangement
+- Adding Windows build chain
+
+## 21/04/2014
 
 - Fetching latest version from mitchellh offical repository (results in using a vagrant cloud baebox with no docker)
 - Updating b2d to experimental build with vboxsf inside (https://github.com/boot2docker/boot2docker/issues/282)
