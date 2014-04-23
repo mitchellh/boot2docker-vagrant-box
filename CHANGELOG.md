@@ -1,6 +1,7 @@
 ## 23/04/2014
 - Adding custom_profile mangement
 - Adding Windows build chain
+- Adding docker and vagrant BATS tests, Windows only
 
 ## 21/04/2014
 

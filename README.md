@@ -12,10 +12,13 @@ My goal is to run boot2docker as a dev environment into vagrant with these const
 - Using virtual box shared folder (using https://github.com/boot2docker/boot2docker/issues/282) for working by default with vagrant
 - Custom profile : if you have a file "custom_profile.sh" at the root, it will be injected on your b2d box (example : configuring corporate HTTP proxy on interactive shell AND docker)
 - A full Windows bat script chain for quickly build and launching the VM
+- Bats tests suites for docker and vagrant, inside the VM (Windows only)
 
 ## Todo :
-- Integrate fig/crane or antoher tools like this
-- Adding bats test to guarantee functional stability across quick chanegs of b2d (for windows, implements basic vagrant tests, and then run bats inside the VM)
+- Integrate fig/crane or antoher tools like this (+ bats test suites)
+- Build chain for linux
+- Running bats tests on linux
+- Use Boot2docker official build for building itself (need a first absebox version for running it auto ?)
 - Try Hyper-V provider and SMB shared folders on Windows.
 
 # MitchellH official documentation below:
