@@ -12,7 +12,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "chef/ubuntu-12.04-i386"
 
-  config.cache.auto_detect = true
+  ############## vagrant-cachier : cache all rpms on your host system
+  if Vagrant.has_plugin?("vagrant-cachier") 
+    config.cache.auto_detect = true
+  end
   
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", "1500"]
