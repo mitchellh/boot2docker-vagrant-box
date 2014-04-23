@@ -33,19 +33,6 @@ if %errorlevel% GEQ 1 (
 	ECHO Could not vagrant ssh to the basebox. See the log for details
 )
 
-REM testing vagrant SSH with sudo
-vagrant ssh -c 'sudo whoami' -- -T -n
-if %errorlevel% GEQ 1 (
-	ECHO Could not sudo vagrant ssh to the basebox. See the log for details
-)
-
-REM testing /vagrant mounting
-@echo off
-vagrant ssh -c 'ls -l /vagrant' -- -T -n
-if %errorlevel% GEQ 1 (
-	ECHO Could not access /vagrant into the basebox. See the log for details
-)
-
 REM testing access to bats install script
 @echo off
 vagrant ssh -c "[ $(ls /vagrant | grep install_bats | wc -l) -eq 1 ] || exit 1" -- -T -n
@@ -59,5 +46,6 @@ vagrant ssh -c "/bin/bash /vagrant/install_bats.sh" -- -T -n
 vagrant ssh -c "/vagrant/bats/bin/bats --tap /vagrant/*.bats" -- -T -n
 
 
+vagrant destroy -f
 cd ..
 rmdir /s /q tmp
