@@ -18,6 +18,15 @@
         "ssh_username": "docker",
         "ssh_password": "tcuser",
         "shutdown_command": "sudo poweroff"
+    }, {
+        "type": "parallels-iso",
+        "iso_url": "boot2docker-vagrant.iso",
+        "iso_checksum_type": "none",
+        "boot_wait": "5s",
+        "guest_os_distribution": "linux",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff"
     }],
 
     "provisioners": [{
