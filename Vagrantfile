@@ -15,4 +15,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", "1500"]
   end
+
+  config.vm.provider "parallels" do |v, override|
+    override.vm.box = "parallels/ubuntu-12.04"
+    v.memory = 1500
+  end
 end
