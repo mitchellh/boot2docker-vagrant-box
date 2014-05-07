@@ -1,9 +1,15 @@
-## 23/04/2014
+## 07/05/2014 (v0.3.0)
+- Adding linux build chain and bats tests
+- Moving to official boot2docker build system
+- Integrate boot2docker build into a Vagrant Docker provider
+- Vboxsf build into ISO (auto) [4.3.8]
+
+## 23/04/2014 (v0.2.0)
 - Adding custom_profile mangement
 - Adding Windows build chain
 - Adding docker and vagrant BATS tests, Windows only
 
-## 21/04/2014
+## 21/04/2014 (v0.1.0)
 
 - Fetching latest version from mitchellh offical repository (results in using a vagrant cloud baebox with no docker)
 - Updating b2d to experimental build with vboxsf inside (https://github.com/boot2docker/boot2docker/issues/282)

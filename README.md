@@ -1,73 +1,43 @@
 # What will you find here ?
 
 My goal is to run boot2docker as a dev environment into vagrant with these constraints :
-- Vagrant is running on Windows 7/8 x64 with virtualbox provider 
-- We want to use fig (http://orchardup.github.io/fig/) for dealing with docker
+- Vagrant is running on Windows 7/8 x64 with virtualbox provider
+- We want to share things already existing in the original host FS.
 - We can run into a corporate env, with an HTTP proxy
+- This repository is used to generate the basebox on vagrant cloud : https://vagrantcloud.com/dduportal/boot2docker.
 
-> See below how to build.
 > See the CHANGELOG.md for history.
+
+# Building the basebox
+
+## Quick build :
+(simple, is'nt it ?)
+
+### On *nix :
+```
+bash make.sh
+```
+
+### On *nix :
+```
+make.bat
+```
+
+## Detailled build :
+
+- First, we'll build the boot2docker iso thru docker and a Dockerfile, taking advantages of trusted builds and extensive build provided by boot2docker guys (https://github.com/boot2docker/boot2docker/blob/master/doc/BUILD.md). We're using docker with the brand new Vagrant Docker provider.
+
+- Second, we'll use this custom ISO to build a vagrant basebox, using packer.
+
+- Third, we'll run a set of tests for validating the content of the basebox : guarantee stability over updates.
+
 
 ## Done :
 - Using virtual box shared folder (using https://github.com/boot2docker/boot2docker/issues/282) for working by default with vagrant
 - Custom profile : if you have a file "custom_profile.sh" at the root, it will be injected on your b2d box (example : configuring corporate HTTP proxy on interactive shell AND docker)
 - A full Windows bat script chain for quickly build and launching the VM
 - Bats tests suites for docker and vagrant, inside the VM (Windows only)
-
-## Todo :
-- Integrate fig/crane or antoher tools like this (+ bats test suites)
 - Build chain for linux
 - Running bats tests on linux
-- Use Boot2docker official build for building itself (need a first absebox version for running it auto ?)
-- Try Hyper-V provider and SMB shared folders on Windows.
+- Use Boot2docker official build
 
-# MitchellH official documentation below:
-
-# boot2docker Vagrant Box
-
-This repository contains the scripts necessary to create a Vagrant-compatible
-[boot2docker](https://github.com/steeve/boot2docker) box. If you work solely
-with Docker, this box lets you keep your Vagrant workflow and work in the
-most minimal Docker environment possible.
-
-## Usage
-
-The box is available on
-[Vagrant Cloud](https://vagrantcloud.com/mitchellh/boot2docker), making
-it very easy to use it:
-
-    $ vagrant init mitchellh/boot2docker
-    $ vagrant up
-
-If you want the actual box file, you can download it from the
-[releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
-
-On OS X, to use the docker client, follow the directions here: http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to export `DOCKER_HOST`). You should then be able to to run `docker version` from the host.
-
-![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
-
-## Building the Box
-
-If you want to recreate the box, rather than using the binary, then
-you can use the scripts and Packer template within this repository to
-do so in seconds.
-
-To build the box, first install the following prerequisites:
-
-  * [Packer](http://www.packer.io) (at least version 0.6.0)
-  * [VirtualBox](http://www.virtualbox.org) (at least version 4.3) or VMware
-  * [Vagrant](http://www.vagrantup.com) (at least version 1.6.0)
-
-Then follow the steps:
-
-```
-$ vagrant up --provider=docker
-...
-$ vagrant destroy --force
-...
-$ packer build template.json
-...
-```
-
-You can restrict only VirtualBox or VMware by specifying the `-only` flag
-to Packer.
