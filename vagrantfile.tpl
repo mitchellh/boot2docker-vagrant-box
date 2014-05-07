@@ -25,4 +25,17 @@ Vagrant.configure("2") do |config|
       v.vmx["ide1:0.deviceType"] = "cdrom-image"
     end
   end
+
+  config.vm.provider "parallels" do |v|
+    v.customize "pre-boot", [
+      "set", :id,
+      "--device-set", "cdrom0",
+      "--enable", "--connect",
+      "--image", File.expand_path("../boot2docker-vagrant.iso", __FILE__)
+    ]
+    v.customize "pre-boot", [
+      "set", :id,
+      "--device-bootorder", "cdrom0 hdd0"
+    ]
+  end
 end
