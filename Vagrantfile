@@ -1,23 +1,17 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+	config.vm.define "my-boot2docker" do |v|
+  		v.vm.provider "docker" do |d|
+    			d.build_dir = "."
+    			d.cmd = ["/usr/sbin/sshd","-D"]
+    			d.has_ssh = true
+  		end
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+		v.ssh.username = "root"
+		v.ssh.password = "vagrant"
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/ubuntu-12.04-i386"
+		v.vm.provision "shell", inline: "cp /boot2docker.iso /vagrant/boot2docker-vagrant.iso && chown $(ls -al /vagrant | head -n2 | tail -n1 | awk '{print $3}') /vagrant/boot2docker-vagrant.iso"
 
-  config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", "1500"]
-  end
-
-  config.vm.provider "parallels" do |v, override|
-    override.vm.box = "parallels/ubuntu-12.04"
-    v.memory = 1500
-  end
+		v.vm.synced_folder ".", "/vagrant"
+	end
 end

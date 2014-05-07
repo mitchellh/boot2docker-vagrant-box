@@ -29,16 +29,14 @@ do so in seconds.
 
 To build the box, first install the following prerequisites:
 
-  * [Packer](http://www.packer.io) (at least version 0.5.1)
+  * [Packer](http://www.packer.io) (at least version 0.6.0)
   * [VirtualBox](http://www.virtualbox.org) (at least version 4.3) or VMware
-  * [Vagrant](http://www.vagrantup.com)
+  * [Vagrant](http://www.vagrantup.com) (at least version 1.6.0)
 
 Then follow the steps:
 
 ```
-$ vagrant up
-...
-$ vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
+$ vagrant up --provider=docker
 ...
 $ vagrant destroy --force
 ...
