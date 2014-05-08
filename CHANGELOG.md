@@ -1,3 +1,7 @@
+## 08/05/2014 (v0.4.0)
+- Adding auto Docker update
+- Moving to Docker 0.11.1
+
 ## 07/05/2014 (v0.3.0)
 - Adding linux build chain and bats tests
 - Moving to official boot2docker build system
