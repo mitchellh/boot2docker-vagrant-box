@@ -1,6 +1,10 @@
 FROM boot2docker/boot2docker-rootfs
 MAINTAINER damien.duportal@gmail.com
 
+# Getting the latest Docker
+RUN curl -L -o $ROOTFS/usr/local/bin/docker https://get.docker.io/builds/Linux/x86_64/docker-latest && \
+    chmod +x $ROOTFS/usr/local/bin/docker
+
 # Install OpenSSH Daemon for vagrant build
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
