@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "parallels" do |v|
     v.customize "pre-boot", [
       "set", :id,
-      "--device-set", "cdrom0",
+      "--device-add", "cdrom",
       "--enable", "--connect",
       "--image", File.expand_path("../boot2docker-vagrant.iso", __FILE__)
     ]
