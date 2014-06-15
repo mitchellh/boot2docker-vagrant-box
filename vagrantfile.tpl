@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.ssh.shell = "sh -l"
+  config.ssh.shell = "sh"
   config.ssh.username = "docker"
 
   # Expose the Docker port
