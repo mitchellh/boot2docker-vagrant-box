@@ -1,14 +1,14 @@
 #!/usr/bin/env bats
 
 @test "Current user is docker" {
-	[ "$(whoami)" == "docker" ]
+	vagrant ssh -c '[ "$(whoami)" == "docker" ]'
 }
 
 @test "Current user has sudoers rights" {
-	[ "$(sudo whoami)" == "root" ]
+	vagrant ssh -c '[ "$(sudo whoami)" == "root" ]'
 }
 
 @test "We correctly have access to the Vagrantfile thru /vagrant" {
-	[ $(ls -l /vagrant | grep Vagrantfile | wc -l) -ge 1 ]
+	vagrant ssh -c '[ $(ls -l /vagrant | grep Vagrantfile | wc -l) -ge 1 ]'
 }
 

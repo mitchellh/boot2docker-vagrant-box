@@ -1,17 +1,17 @@
 #!/usr/bin/env bats
 
 @test "Docker bin exists and is in the PATH" {
-	which docker
+	vagrant ssh -c "which docker"
 }
 
 @test "Docker dameon is running" {
-	[ $(ps aux | grep 'docker -d' | wc -l) -ge 1 ]
+	vagrant ssh -c "[ $(ps aux | grep 'docker -d' | wc -l) -ge 1 ]"
 }
 
 @test "Docker client can connect to docker daemon" {
-	docker ps
+	vagrant ssh -c "docker ps"
 }
 
 @test "Docker can reach the INTERNET" {
-	docker search centos
+	vagrant ssh -c "docker search centos"
 }

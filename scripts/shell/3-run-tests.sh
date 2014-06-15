@@ -4,6 +4,7 @@ SANDBOX="tmp"
 BOX_NAME="b2d-test"
 BOX_FILE="boot2docker_virtualbox.box"
 TESTS_DIR="tests"
+CURRENT_DIR=$(dirname $0)
 
 
 # Clean sandbox
@@ -30,10 +31,16 @@ init_sandbox() {
 init_sandbox
 cd "$SANDBOX"
 vagrant up
-vagrant ssh -c 'whoami'
-vagrant ssh -c "[ $(ls /vagrant | grep install_bats | wc -l) -eq 1 ] || exit 1"
-vagrant ssh -c "/bin/bash /vagrant/install_bats.sh"
-vagrant ssh -c "/vagrant/bats/bin/bats --tap /vagrant/*.bats"
+
+# If we have bats already installed, nothing to do
+if [[ ! -x ./bats/bin/bats ]]; then
+	rm -rf bats
+	git clone https://github.com/sstephenson/bats
+	chmod a+x ./bats/bin/bats
+fi
+
+./bats/bin/bats --tap *.bats
+
 cd -
 clean_sandbox
 
