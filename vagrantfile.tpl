@@ -1,9 +1,15 @@
-Vagrant.configure("2") do |config|
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.shell = "sh -l"
   config.ssh.username = "docker"
 
   # Expose the Docker port
-  config.vm.network "forwarded_port", guest: 4243, host: 4243, auto_correct: true
+  config.vm.network "forwarded_port", guest: 2375, host: 2375, auto_correct: true
 
   # Attach the ISO
   config.vm.provider "virtualbox" do |v|

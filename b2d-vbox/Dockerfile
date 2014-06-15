@@ -1,23 +1,8 @@
 FROM boot2docker/boot2docker
 MAINTAINER damien.duportal@gmail.com
 
-ENV VBOX_VERSION 4.3.10
+ENV VBOX_VERSION 4.3.12
 
-# Getting the latest Docker
-RUN curl -L -o $ROOTFS/usr/local/bin/docker https://get.docker.io/builds/Linux/x86_64/docker-latest && \
-    chmod +x $ROOTFS/usr/local/bin/docker
-
-# Install OpenSSH Daemon for vagrant build
-RUN apt-get update && apt-get install -y openssh-server
-RUN mkdir /var/run/sshd
-RUN echo 'root:vagrant' |chpasswd
-
-# Specific Vagrant things
-ADD vagrant $ROOTFS/etc/rc.d/vagrant
-RUN chmod a+x $ROOTFS/etc/rc.d/vagrant
-RUN echo "/etc/rc.d/vagrant" >> $ROOTFS/opt/bootsync.sh
-
-# VBox additions insertion
 RUN apt-get install -y p7zip-full
 
 RUN mkdir -p /vboxguest && \
@@ -35,10 +20,9 @@ RUN depmod -a -b $ROOTFS $KERNEL_VERSION-tinycore64
 
 RUN echo "modprobe vboxsf" >> $ROOTFS/opt/bootsync.sh
 
+RUN rm -f boot2docker.iso
+
 # Build the iso
 RUN /make_iso.sh
-
-# Launching the VM
-EXPOSE 22
-CMD ["/usr/sbin/sshd","-D"]
+CMD ["cat", "boot2docker.iso"]
 

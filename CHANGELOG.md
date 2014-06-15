@@ -1,3 +1,10 @@
+## 15/06/2014 (v0.5.0)
+- Moving to the new IANA Docker port 2375, and let vagrant auto corrects when collision
+- Moving to boot2docker and Docker 1.0.0 
+- Using a custom Vagrantfile for building a b2d iso with vbox addition
+- Re-using temporarly mitchellh vagrantfile + build-iso workflow for "vagranti-zing" the b2d.iso
+- Updating build scripts (Unix/Windows) with packer building all types
+
 ## 08/05/2014 (v0.4.0)
 - Adding auto Docker update
 - Moving to Docker 0.11.1
