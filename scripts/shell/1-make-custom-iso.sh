@@ -9,5 +9,5 @@ cp b2d-vbox/b2d.iso .
 
 # Standard mitchellh build injecting vagrant things into the b2d.iso
 vagrant up
-vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
+vagrant ssh -c 'cd /vagrant && sudo bash build-iso.sh'
 vagrant destroy -f
