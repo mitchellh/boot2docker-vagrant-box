@@ -18,12 +18,12 @@ My goal is to run boot2docker as a dev environment into vagrant with these const
 bash make.sh
 ```
 
-### On *nix :
+### On Windows :
 ```
 make.bat
 ```
 
-## Detailled build :
+## Detailed build :
 
 - First, we'll build the boot2docker iso thru docker and a Dockerfile, taking advantages of trusted builds and extensive build provided by boot2docker guys (https://github.com/boot2docker/boot2docker/blob/master/doc/BUILD.md). We're using docker with the brand new Vagrant Docker provider.
 
