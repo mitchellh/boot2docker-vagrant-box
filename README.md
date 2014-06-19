@@ -17,7 +17,7 @@ This repository is used to build this vagrant basebox : https://vagrantcloud.com
 bash make.sh (<Github Tag/Changeset> if you want to build all from source)
 ```
 
-### On Windows (Partial support, help needed, don't hesitate tio pull request if you're ready to bat script !) :
+### On Windows (Partial support, help needed, don't hesitate to pull request!) :
 ```
 make.bat
 ```
