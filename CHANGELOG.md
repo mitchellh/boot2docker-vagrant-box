@@ -1,5 +1,7 @@
-## Not released
+## 19/06/2014 (v0.6.0) NOT RELEASED
 - Building b2d-vbox and b2d vagrant custom in one Dockerfile instead of Docker + vagrant + ubuntu
+- Adding possibility to build boot2docker vanilla image from official github repo instead of pulling from Docker index
+- Move to b2d and docker 1.0.0 (bash make.sh v1.0.0)
 
 ## 15/06/2014 (v0.5.0)
 - Moving to the new IANA Docker port 2375, and let vagrant auto corrects when collision
