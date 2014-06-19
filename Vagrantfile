@@ -5,19 +5,17 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+	config.vm.box = "dduportal/boot2docker"
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/ubuntu-12.04-i386"
+	config.vm.provider "virtualbox" do |v|
+		v.customize ["modifyvm", :id, "--memory", "2048"]
+	end
 
-  config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", "1500"]
-  end
+	# Use devicemapper instead of AUFS. Slower for build, but override the AUFS numbered layer limitation
+	config.vm.provision "shell", inline: "echo 'DOCKER_STORAGE=devicemapper' >> /var/lib/boot2docker/profile"
+	config.vm.provision "shell", inline: "sudo /etc/init.d/docker restart" 
+	
+	# Build and create our b2d custom image
+	config.vm.provision "shell", inline: "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/b2d.iso"
 
-  config.vm.provider "parallels" do |v, override|
-    override.vm.box = "parallels/ubuntu-12.04"
-    v.memory = 1500
-  end
 end
