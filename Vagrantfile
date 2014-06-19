@@ -14,8 +14,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# Use devicemapper instead of AUFS. Slower for build, but override the AUFS numbered layer limitation
 	config.vm.provision "shell", inline: "echo 'DOCKER_STORAGE=devicemapper' >> /var/lib/boot2docker/profile"
 	config.vm.provision "shell", inline: "sudo /etc/init.d/docker restart" 
-	
-	# Build and create our b2d custom image
-	config.vm.provision "shell", inline: "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/boot2docker-vagrant.iso"
 
 end
