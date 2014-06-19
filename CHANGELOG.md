@@ -1,5 +1,5 @@
 ## Not released
-- 
+- Building b2d-vbox and b2d vagrant custom in one Dockerfile instead of Docker + vagrant + ubuntu
 
 ## 15/06/2014 (v0.5.0)
 - Moving to the new IANA Docker port 2375, and let vagrant auto corrects when collision
