@@ -14,7 +14,6 @@ if [[ ! -f boot2docker-vagrant.iso ]]; then
 
 		# Build the vanilla boot2docker image
 		vagrant ssh -c "docker build -t boot2docker/boot2docker /vagrant/boot2docker"
-
 	fi
 
 	# Build the custom boot2docker from vanilla image

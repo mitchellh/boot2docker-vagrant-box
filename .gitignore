@@ -4,3 +4,4 @@ packer_cache/
 *.box
 *.iso
 output-*
+boot2docker/
