@@ -16,6 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision "shell", inline: "sudo /etc/init.d/docker restart" 
 	
 	# Build and create our b2d custom image
-	config.vm.provision "shell", inline: "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/b2d.iso"
+	config.vm.provision "shell", inline: "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/boot2docker-vagrant.iso"
 
 end
