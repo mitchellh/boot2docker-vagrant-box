@@ -1,3 +1,6 @@
+## 22/06/2014 (v1.0.1)
+- Moving to docker and b2d 1.0.1
+
 ## 19/06/2014 (v1.0.0)
 - Building b2d-vbox and b2d vagrant custom in one Dockerfile instead of Docker + vagrant + ubuntu
 - Adding possibility to build boot2docker vanilla image from official github repo instead of pulling from Docker index
