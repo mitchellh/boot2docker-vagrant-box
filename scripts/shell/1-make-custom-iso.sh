@@ -2,7 +2,7 @@
 
 # Build a custom b2d with vbox extensions
 if [[ ! -f boot2docker-vagrant.iso ]]; then
-	vagrant up 
+	vagrant up || exit 1
 
 	# If we provide a string, i assume this the tag to the boot2docker githu reporsitory
 	if [[ -n "$1" ]]; then
@@ -13,11 +13,11 @@ if [[ ! -f boot2docker-vagrant.iso ]]; then
 		cd -
 
 		# Build the vanilla boot2docker image
-		vagrant ssh -c "docker build -t boot2docker/boot2docker /vagrant/boot2docker"
+		vagrant ssh -c "docker build -t boot2docker/boot2docker /vagrant/boot2docker" || exit 1
 	fi
 
 	# Build the custom boot2docker from vanilla image
-	vagrant ssh -c "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/boot2docker-vagrant.iso"
+	vagrant ssh -c "docker build -t my-b2d /vagrant/ && docker run --rm my-b2d > /vagrant/boot2docker-vagrant.iso" || exit 1
 
 	vagrant halt
 fi
