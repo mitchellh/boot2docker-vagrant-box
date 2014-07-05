@@ -1,5 +1,5 @@
 
-## [Not released] (v1.1.0)
+## 05/07/2014 (v1.1.0)
 - Moving to docker v1.1.0
 - Moving to boot2docker v1.1.0
 - Adding some error handling when building from shell
