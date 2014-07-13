@@ -1,4 +1,9 @@
 
+## 13/07/2014 (v1.1.1)
+- Moving to boot2docker 1.1.1 (and Docker 1.1.1 by transitivity)
+- Persisting the b2d dependency into the make.sh script for easying future updates and trusting
+- Moving the default RAM of the VM to 2Gb
+
 ## 05/07/2014 (v1.1.0)
 - Moving to docker v1.1.0
 - Moving to boot2docker v1.1.0
