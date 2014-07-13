@@ -9,25 +9,10 @@
         "guest_os_type": "Linux_64",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
-    }, {
-        "type": "vmware-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
-        "boot_wait": "5s",
-        "guest_os_type": "other3xlinux-64",
-        "ssh_username": "docker",
-        "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
-    }, {
-        "type": "parallels-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
-        "boot_wait": "5s",
-        "guest_os_distribution": "linux",
-        "ssh_username": "docker",
-        "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "2048"]
+        ]
     }],
 
     "provisioners": [{
