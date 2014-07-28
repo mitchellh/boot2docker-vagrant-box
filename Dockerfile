@@ -1,11 +1,11 @@
-FROM boot2docker/boot2docker
+FROM boot2docker/boot2docker:latest
 MAINTAINER damien.duportal@gmail.com
 
 RUN rm -f boot2docker.iso
 
 ######## VirtualBox Guest Additions building
 # You can change the target version here
-ENV VBOX_VERSION 4.3.12
+ENV VBOX_VERSION 4.3.14
 
 RUN apt-get install -y p7zip-full
 
