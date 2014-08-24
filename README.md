@@ -17,7 +17,10 @@ it very easy to use it:
 If you want the actual box file, you can download it from the
 [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
 
-On OS X, to use the docker client, follow the directions here: http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to export `DOCKER_HOST`). You should then be able to to run `docker version` from the host.
+On OS X, to use the docker client, follow the directions here:
+http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to
+export `DOCKER_HOST`). You should then be able to to run `docker version` from
+the host.
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
@@ -30,7 +33,7 @@ do so in seconds.
 To build the box, first install the following prerequisites:
 
   * [Packer](http://www.packer.io) (at least version 0.5.1)
-  * [VirtualBox](http://www.virtualbox.org) (at least version 4.3) or VMware
+  * [VirtualBox](http://www.virtualbox.org) (at least version 4.3), VMware, or Parallels
   * [Vagrant](http://www.vagrantup.com)
 
 Then follow the steps:
@@ -46,5 +49,5 @@ $ packer build template.json
 ...
 ```
 
-You can restrict only VirtualBox or VMware by specifying the `-only` flag
+You can restrict only VirtualBox, VMware, or Parallels by specifying the `-only` flag
 to Packer.
