@@ -4,7 +4,7 @@
         "iso_url": "boot2docker-vagrant.iso",
         "iso_checksum_type": "none",
         "boot_wait": "5s",
-        "guest_additions_mode": "disable",
+        "guest_additions_mode": "attach",
         "guest_os_type": "Linux_64",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
