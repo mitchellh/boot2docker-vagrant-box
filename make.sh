@@ -1,6 +1,6 @@
 #!/bin/bash
 
-B2D_VERSION="v1.2.0"
+B2D_VERSION="v1.3.0"
 TAG=""
 
 while getopts ":s" opt; do
