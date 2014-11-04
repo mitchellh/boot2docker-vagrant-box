@@ -26,7 +26,8 @@
         "guest_os_distribution": "linux",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "parallels_tools_mode": "disable"
     }],
 
     "provisioners": [{
