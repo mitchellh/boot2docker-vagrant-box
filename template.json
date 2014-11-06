@@ -36,16 +36,15 @@
         "shutdown_command": "sudo poweroff",
         "parallels_tools_mode": "disable"
     }],
-
     "provisioners": [
         {
-          "type": "shell",
+            "type": "shell",
+            "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "scripts": [
                 "b2d-provision.sh"
             ]
         }
     ],
-
     "post-processors": [{
         "type": "vagrant",
         "include": ["boot2docker.iso"],

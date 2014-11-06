@@ -1,8 +1,6 @@
 Vagrant.configure("2") do |config|
   config.ssh.shell = "sh"
   config.ssh.username = "docker"
-  config.ssh.password = "tcuser"
-  config.ssh.insert_key = true
 
   # Expose the Docker ports (non secured AND secured)
   config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: "127.0.0.1", auto_correct: true, id: "docker"
