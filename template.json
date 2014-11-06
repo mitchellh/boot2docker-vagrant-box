@@ -1,8 +1,13 @@
 {
+    "variables": {
+        "B2D_ISO_FILE": "boot2docker.iso",
+        "B2D_ISO_CHECKSUM": "a0f8e7b9ef9a59befcd9ceff604ef2af"
+    },
     "builders": [{
         "type": "virtualbox-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
         "guest_additions_mode": "attach",
         "guest_os_type": "Linux_64",
@@ -11,8 +16,9 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "vmware-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
         "guest_os_type": "other3xlinux-64",
         "ssh_username": "docker",
@@ -20,24 +26,29 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "parallels-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
-        "guest_os_distribution": "linux",
+        "guest_os_type": "linux",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
         "shutdown_command": "sudo poweroff",
         "parallels_tools_mode": "disable"
     }],
 
-    "provisioners": [{
-      "type": "shell",
-      "inline": ["mkfs.ext4 -F -L boot2docker-data /dev/sda"]
-    }],
+    "provisioners": [
+        {
+          "type": "shell",
+            "scripts": [
+                "b2d-provision.sh"
+            ]
+        }
+    ],
 
     "post-processors": [{
         "type": "vagrant",
-        "include": ["boot2docker-vagrant.iso"],
+        "include": ["boot2docker.iso"],
         "vagrantfile_template": "vagrantfile.tpl",
         "output": "boot2docker_{{.Provider}}.box"
     }]
