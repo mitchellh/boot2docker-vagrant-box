@@ -4,4 +4,5 @@ packer_cache/
 *.box
 b2d.iso
 boot2docker-vagrant.iso
+boot2docker.iso
 output*
