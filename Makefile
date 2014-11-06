@@ -1,5 +1,5 @@
 build: boot2docker-vagrant.iso
-	packer build -parallel=false template.json
+	time (packer build -parallel=false template.json)
 
 prepare: clean boot2docker-vagrant.iso
 
