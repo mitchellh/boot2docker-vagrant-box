@@ -24,6 +24,13 @@ the host.
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
+## Specific vagrant <-> boot2docker bindings
+
+* If you want to tune contents (custom profile, install tools inside the VM) that do not fit into the "vagrant provisionning" lifecycle combinded with the un-persistence of boot2docker, the "bootlocal" system has been extended :
+  * The [boot2docker FaQ](https://github.com/boot2docker/boot2docker/blob/master/doc/FAQ.md) says that you can provide a custom script, named bootlocal.sh to execute things at the end of the boot.
+  * We customize in order to run that script from the /vagrant share when mounted, at the end of the boot.
+  * So : just place a "bootlocal.sh" script alongside your Vagrantfile to customize what's inside your b2d VM.
+
 ## Building the Box
 
 If you want to recreate the box, rather than using the binary, then
