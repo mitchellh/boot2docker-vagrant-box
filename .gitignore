@@ -2,13 +2,5 @@
 .vagrant/
 packer_cache/
 *.box
-<<<<<<< HEAD
 *.iso
-output-*
-boot2docker/
-=======
-b2d.iso
-boot2docker-vagrant.iso
-boot2docker.iso
 output*
->>>>>>> new-master
