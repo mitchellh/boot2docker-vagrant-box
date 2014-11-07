@@ -6,6 +6,7 @@
 - Packer 0.7 compatibility
 - When docker-building, AUFS limit is now 128 layers instead of 42
 - Packer-only new build process, from the vanilla boot2docker iso, checksumed
+- bootlocal.sh can be used from /vagrant mount (alongside the Vagrantfile)
 
 ## 13/07/2014 (v1.1.1)
 - Moving to boot2docker 1.1.1 (and Docker 1.1.1 by transitivity)
