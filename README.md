@@ -1,23 +1,19 @@
-# What will you find here ?
+# boot2docker Vagrant Box
 
-This repository is used to build this vagrant basebox : https://vagrantcloud.com/dduportal/boot2docker
-- We use boot2docker as vanilla as possible (using official Docker index or building it from boot2docker official github repo)
-- We want to share folders with virtualbox shared folder in vagrant. This is not the best method but usefull anyway.
-- We want the basebox build process to be as ligthweight as possible.
+This repository contains the scripts necessary to create a Vagrant-compatible
+[boot2docker](https://github.com/boot2docker/boot2docker) box. If you work solely
+with Docker, this box lets you keep your Vagrant workflow and work in the
+most minimal Docker environment possible.
 
-> See the CHANGELOG.md for history.
+## Usage
 
-# Building the basebox
+The box is available on
+[Vagrant Cloud](https://vagrantcloud.com/mitchellh/boot2docker), making
+it very easy to use it:
 
-## Quick build :
-(simple, is'nt it ?)
+    $ vagrant init mitchellh/boot2docker
+    $ vagrant up
 
-<<<<<<< HEAD
-### On *nix :
-```
-bash make.sh (<Github Tag/Changeset> if you want to build all from source)
-```
-=======
 If you want the actual box file, you can download it from the
 [releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
 
@@ -29,29 +25,25 @@ the host.
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
 ## Building the Box
->>>>>>> new-master
 
-### On Windows (Partial support, help needed, don't hesitate to pull request!) :
-```
-make.bat
-```
+If you want to recreate the box, rather than using the binary, then
+you can use the scripts and Packer template within this repository to
+do so in seconds.
 
-## Detailed build :
+To build the box, first install the following prerequisites:
 
-<<<<<<< HEAD
-- First, we'll build the boot2docker iso with some customisations inside thru docker and a Dockerfile. It can take advantages of Docker trusted builds (https://github.com/boot2docker/boot2docker/blob/master/doc/BUILD.md) of boot2docker or build the original image from boot2docker github repo if you provide a git ref. The Dockerfile included will install vbox additions and vagrant stuff directly inside.
-=======
-  * [Packer](http://www.packer.io) (at least version 0.5.1)
+  * [Packer](http://www.packer.io) (at least version 0.7.2)
   * [VirtualBox](http://www.virtualbox.org) (at least version 4.3), VMware, or Parallels
   * [Vagrant](http://www.vagrantup.com)
->>>>>>> new-master
 
-- Second, we'll use this custom ISO to build a vagrant basebox, using packer and mitchellh's packer template (https://github.com/mitchellh/boot2docker-vagrant-box).
+Then follow the steps:
 
-- Third, we'll run a set of tests for validating the content of the basebox : guarantee stability over updates.
+```
+$ wget -O boot2docker-vagrant.iso <latest ISO release of boot2docker>
+...
+$ packer build template.json
+...
+```
 
-<<<<<<< HEAD
-=======
 You can restrict only VirtualBox, VMware, or Parallels by specifying the `-only` flag
 to Packer.
->>>>>>> new-master
