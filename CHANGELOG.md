@@ -1,4 +1,12 @@
 
+## 07/11/2014 (v1.3.1)
+- Moving to boot2docker 1.3.1 (docker 1.3.1)
+- Adding SSL docker's daemon port NAT to 2376
+- NATed ports are now auto-moved when conflicting
+- Packer 0.7 compatibility
+- When docker-building, AUFS limit is now 128 layers instead of 42
+- Packer-only new build process, from the vanilla boot2docker iso, checksumed
+
 ## 13/07/2014 (v1.1.1)
 - Moving to boot2docker 1.1.1 (and Docker 1.1.1 by transitivity)
 - Persisting the b2d dependency into the make.sh script for easying future updates and trusting
