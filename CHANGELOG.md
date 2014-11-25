@@ -1,3 +1,5 @@
+## 25/11/2014 (v1.3.2)
+- Movint to boot2docker 1.3.2 and Docker 1.3.2 (security issues)
 
 ## 07/11/2014 (v1.3.1)
 - Moving to boot2docker 1.3.1 (docker 1.3.1)
