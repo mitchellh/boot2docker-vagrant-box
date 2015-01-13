@@ -24,12 +24,31 @@ the host.
 
 ![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
-## Specific vagrant <-> boot2docker bindings
+## Tips & tricks
+
+* Vagrant synced folder has been tested with :
+  * vbox shared folder
+  * NFS
 
 * If you want to tune contents (custom profile, install tools inside the VM) that do not fit into the "vagrant provisionning" lifecycle combinded with the un-persistence of boot2docker, the "bootlocal" system has been extended :
   * The [boot2docker FaQ](https://github.com/boot2docker/boot2docker/blob/master/doc/FAQ.md) says that you can provide a custom script, named bootlocal.sh to execute things at the end of the boot.
   * We customize in order to run that script from the /vagrant share when mounted, at the end of the boot.
   * So : just place a "bootlocal.sh" script alongside your Vagrantfile to customize what's inside your b2d VM.
+
+
+* If you use the VM as a remote Docker daemon in a private networked docker server you need to add in your bootlocal.sh :
+(Thanks to @Freyskeyd)
+
+```
+# Regenerate certs for the newly created Iprivate network IP
+sudo /etc/init.d/docker restart
+# Copy tls certs to the vagrant share to allow host to use it
+sudo cp -r /var/lib/boot2docker/tls /vagrant/
+```
+
+Next, you need to configure your Docker environment :
+* Export cert path: ```export DOCKER_CERT_PATH=<Absolute path to your vagrant share>/tls```
+* Export Docker host path : ```export DOCKER_HOST=tcp://192.168.10.10:2376``` (You can also use localhost if the NAT is OK)
 
 ## Building the Box
 
