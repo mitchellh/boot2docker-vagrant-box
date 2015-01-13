@@ -1,4 +1,11 @@
 
+## 13/01/2015 (v1.4.1-2)
+- GH-5 : NFS support for synced folder
+- GH-5 : bootlocalh.sh is now working (from the vagrant synced folder)
+- GH-5 : Vagrant 1.7 support : Disabling the new behaviour with ssh keys
+- Adding a private network in order to ease NFS synced folder and access to VM services
+- Writing some docs in order to use this VM as a remote daemon
+
 ## 17/12/2014 (v1.4.1)
 - Moving to boot2docker 1.4.1 (and Docker 1.4.1)
 
