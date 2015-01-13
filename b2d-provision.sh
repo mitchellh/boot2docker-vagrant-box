@@ -34,18 +34,7 @@ tar cf ${B2D_PERSISTENT_DIR}/userdata.tar ./.ssh
 
 ## I want to re-use the bootlocal.sh stuff, but adding one optionnaly from the /vagrant folder
 cat <<EOF >${B2D_PERSISTENT_DIR}/bootlocal.sh
-# Waiting for /vagrant to be mounted
-while true; do
-    if [[ -d /vagrant ]]; then
-       break
-    fi
-    sleep 1
-done
-sleep 5
+sudo /usr/local/etc/init.d/nfs-client start
 
-# If we have a bootlocal.sh in /vagrant, just run it
-if [[ -x /vagrant/bootlocal.sh ]]; then
-	/bin/sh /vagrant/bootlocal.sh
-fi
 EOF
 sudo chmod a+x ${B2D_PERSISTENT_DIR}/bootlocal.sh
