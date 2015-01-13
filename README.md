@@ -60,16 +60,12 @@ To build the box, first install the following prerequisites:
 
   * [Packer](http://www.packer.io) (at least version 0.7.2)
   * [VirtualBox](http://www.virtualbox.org) (at least version 4.3), VMware, or Parallels
-  * [Vagrant](http://www.vagrantup.com)
+  * [Make](http://www.gnu.org/software/make/)
+  * [wget](http://www.gnu.org/software/wget/)
 
 Then follow the steps:
 
 ```
-$ wget -O boot2docker-vagrant.iso <latest ISO release of boot2docker>
-...
-$ packer build template.json
+$ make
 ...
 ```
-
-You can restrict only VirtualBox, VMware, or Parallels by specifying the `-only` flag
-to Packer.
