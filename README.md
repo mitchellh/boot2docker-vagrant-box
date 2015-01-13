@@ -46,9 +46,9 @@ sudo /etc/init.d/docker restart
 sudo cp -r /var/lib/boot2docker/tls /vagrant/
 ```
 
-Next, you need to configure your Docker environment :
-* Export cert path: ```export DOCKER_CERT_PATH=<Absolute path to your vagrant share>/tls```
-* Export Docker host path : ```export DOCKER_HOST=tcp://192.168.10.10:2376``` (You can also use localhost if the NAT is OK)
+  Next, you need to configure your Docker environment :
+  * Export cert path: ```export DOCKER_CERT_PATH=<Absolute path to your vagrant share>/tls```
+  * Export Docker host path : ```export DOCKER_HOST=tcp://192.168.10.10:2376``` (You can also use localhost if the NAT is OK)
 
 ## Building the Box
 
