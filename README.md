@@ -1,7 +1,7 @@
 # boot2docker Vagrant Box
 
 This repository contains the scripts necessary to create a Vagrant-compatible
-[boot2docker](https://github.com/steeve/boot2docker) box. If you work solely
+[boot2docker](https://github.com/boot2docker/boot2docker) box. If you work solely
 with Docker, this box lets you keep your Vagrant workflow and work in the
 most minimal Docker environment possible.
 
