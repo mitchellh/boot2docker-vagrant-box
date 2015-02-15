@@ -1,0 +1,13 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "boot2docker-virtualbox-test"
+  config.vm.box_url = "file://../boot2docker_virtualbox.box"
+  
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+
+end
