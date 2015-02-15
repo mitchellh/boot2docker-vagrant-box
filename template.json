@@ -41,7 +41,8 @@
             "type": "shell",
             "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "scripts": [
-                "b2d-provision.sh"
+                "./scripts/build-custom-iso.sh",
+                "./scripts/b2d-provision.sh"
             ]
         }
     ],
