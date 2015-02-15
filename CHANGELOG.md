@@ -1,4 +1,7 @@
 
+## 15/02/2015 (v1.5.0)
+- GH-6 : Adding a private id to the default private network in order to permit bypass at user level
+
 ## 13/01/2015 (v1.4.1-2)
 - GH-5 : NFS support for synced folder
 - GH-5 : bootlocalh.sh is now working (from the vagrant synced folder)
