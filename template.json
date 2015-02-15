@@ -5,6 +5,9 @@
     },
     "builders": [{
         "type": "virtualbox-iso",
+        "vboxmanage": [
+            ["modifyvm","{{.Name}}","--memory","1536"]
+        ],
         "iso_url": "{{user `B2D_ISO_FILE`}}",
         "iso_checksum_type": "md5",
         "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
@@ -37,6 +40,11 @@
         "parallels_tools_mode": "disable"
     }],
     "provisioners": [
+        {
+            "type": "file",
+            "source": "boot2docker.iso",
+            "destination": "/tmp/boot2docker-orig.iso"
+        },
         {
             "type": "shell",
             "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
