@@ -6,10 +6,8 @@
 @test "We can vagrant up the VM with basic settings" {
 	# Ensure the VM is stopped
 	run vagrant destroy -f
+	run vagrant box remove boot2docker-virtualbox-test
 	vagrant up
-}
-
-@test "Vagrant says the VM is running " {
 	[ $( vagrant status | grep 'running' | wc -l ) -ge 1 ]
 }
 
@@ -42,14 +40,27 @@
 	vagrant ssh -c 'echo OK'
 }
 
+@test "We have a default synced folder thru vboxsf" {
+	vagrant ssh -c "ls -l /vagrant/Vagrantfile"
+}
+
 @test "Rsync is installed inside the b2d" {
 	vagrant ssh -c "which rsync"
+}
+
+@test "We can share folder thru rsync" {
+	sed -i .old 's/"virtualbox"/"rsync"/g' Vagrantfile
+	vagrant reload
+	[ $( vagrant status | grep 'running' | wc -l ) -ge 1 ]
+	vagrant ssh -c "ls -l /vagrant/Vagrantfile"
+	mv Vagrantfile.old Vagrantfile
 }
 
 @test "I can stop the VM" {
 	vagrant halt
 }
 
-@test "I can destroy the VM" {
+@test "I can destroy and clean the VM" {
 	vagrant destroy -f
+	vagrant box remove boot2docker-virtualbox-test
 }

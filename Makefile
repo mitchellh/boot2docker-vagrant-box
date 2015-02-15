@@ -9,7 +9,7 @@ boot2docker.iso:
 test: test-virtualbox
 
 test-virtualbox:
-	@cd tests; bats --tap *.bats
+	@cd tests/virtualbox; bats --tap *.bats
 
 clean:
 	rm -rf *.iso *.box
