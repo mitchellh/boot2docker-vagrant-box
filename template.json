@@ -19,6 +19,9 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "vmware-iso",
+        "vmx_data" : {
+            "memsize": "1536"
+          },
         "iso_url": "{{user `B2D_ISO_FILE`}}",
         "iso_checksum_type": "md5",
         "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
