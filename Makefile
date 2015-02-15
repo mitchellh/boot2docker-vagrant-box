@@ -14,4 +14,6 @@ test-virtualbox:
 clean:
 	rm -rf *.iso *.box
 
-.PHONY: clean prepare build test test-virtualbox
+all: clean prepare build test
+
+.PHONY: clean prepare build test test-virtualbox all
