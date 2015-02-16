@@ -2,6 +2,9 @@
 ## 15/02/2015 (v1.5.0)
 - GH-6 : Adding a private id to the default private network in order to permit bypass at user level
 - Moving to [docker v1.5.0](https://github.com/docker/docker/blob/master/CHANGELOG.md#150-2015-02-10) + [boot2docker v1.5.0](https://github.com/boot2docker/boot2docker/releases/tag/v1.5.0) 
+- Support of rsync synced folder (rsync is installed in the box)
+- Removing the box-embedded iso (Is now dumped to the first partition of the HDD)
+- Adding a set of integration tests usings bats for testing the box with the vagrant provider 
 
 ## 13/01/2015 (v1.4.1-2)
 - GH-5 : NFS support for synced folder
