@@ -7,6 +7,7 @@
 	# Ensure the VM is stopped
 	run vagrant destroy -f
 	run vagrant box remove boot2docker-virtualbox-test
+	cp vagrantfile.orig Vagrantfile
 	vagrant up
 	[ $( vagrant status | grep 'running' | wc -l ) -ge 1 ]
 }
@@ -49,11 +50,10 @@
 }
 
 @test "We can share folder thru rsync" {
-	sed -i .old 's/"virtualbox"/"rsync"/g' Vagrantfile
+	sed 's/"virtualbox"/"rsync"/g' vagrantfile.orig > Vagrantfile
 	vagrant reload
 	[ $( vagrant status | grep 'running' | wc -l ) -ge 1 ]
 	vagrant ssh -c "ls -l /vagrant/Vagrantfile"
-	mv Vagrantfile.old Vagrantfile
 }
 
 @test "I can stop the VM" {
