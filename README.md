@@ -1,21 +1,23 @@
 # boot2docker Vagrant Box
 
 This repository contains the scripts necessary to create a Vagrant-compatible
-[boot2docker](https://github.com/boot2docker/boot2docker) box. If you work solely
+[boot2docker](https://github.com/boot2docker/boot2docker) box and is compatible with Docker v1.5. 
+
+If you work solely
 with Docker, this box lets you keep your Vagrant workflow and work in the
 most minimal Docker environment possible.
 
 ## Usage
 
 The box is available on
-[Vagrant Cloud](https://vagrantcloud.com/mitchellh/boot2docker), making
+[Vagrant Cloud](https://vagrantcloud.com/dduportal/boot2docker), making
 it very easy to use it:
 
-    $ vagrant init mitchellh/boot2docker
+    $ vagrant init dduportal/boot2docker
     $ vagrant up
 
 If you want the actual box file, you can download it from the
-[releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
+[tags page](https://github.com/dduportal/boot2docker-vagrant-box/tags).
 
 On OS X, to use the docker client, follow the directions here:
 http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to
