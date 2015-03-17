@@ -1,5 +1,5 @@
 build: boot2docker-vagrant.iso
-	time (packer build -parallel=false template.json)
+	time (packer build -parallel=false -only vmware-iso  template.json)
 
 prepare: clean boot2docker-vagrant.iso
 
@@ -10,5 +10,8 @@ boot2docker-vagrant.iso:
 
 clean:
 	rm -rf *.iso *.box
+	rm -rf .vagrant
+	rm -rf packer_cache
+
 
 .PHONY: clean prepare build

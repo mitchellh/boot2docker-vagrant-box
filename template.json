@@ -17,7 +17,8 @@
         "guest_os_type": "other3xlinux-64",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "tools_upload_flavor" : "linux"
     }, {
         "type": "parallels-iso",
         "iso_url": "boot2docker-vagrant.iso",
