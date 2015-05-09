@@ -4,7 +4,7 @@ build: boot2docker.iso
 prepare: clean boot2docker.iso
 
 boot2docker.iso:
-	curl -L -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v1.5.0/boot2docker.iso
+	curl -L -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v1.6.0/boot2docker.iso
 
 test: test-virtualbox
 
