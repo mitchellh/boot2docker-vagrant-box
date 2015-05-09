@@ -4,7 +4,7 @@
     },
     "variables": {
         "B2D_ISO_FILE": "boot2docker.iso",
-        "B2D_ISO_CHECKSUM": "11f28ce5f9d1b7d7e3dc59d411b40065"
+        "B2D_ISO_CHECKSUM": "c59f70b4990d77f91ace7213935d69ee"
     },
     "builders": [{
         "type": "virtualbox-iso",
