@@ -24,10 +24,6 @@
 	vagrant ssh -c 'which docker'
 }
 
-@test "Docker remote service is started (init point of view)" {
-	vagrant ssh -c 'sudo /etc/init.d/docker status'
-}
-
 @test "Docker is working inside the remote VM " {
 	vagrant ssh -c 'docker ps'
 }
