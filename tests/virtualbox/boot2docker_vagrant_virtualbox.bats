@@ -37,13 +37,28 @@
 	vagrant ssh -c 'echo OK'
 }
 
-@test "We have a default synced folder thru vboxsf" {
+@test "We can share folder thru vboxsf" {
 	vagrant ssh -c "ls -l /vagrant/Vagrantfile"
 }
 
 @test "Rsync is installed inside the b2d" {
 	vagrant ssh -c "which rsync"
 }
+
+@test "The NFS client is started inside the VM" {
+	[ $(vagrant ssh -c 'ps aux | grep rpc.statd | wc -l' -- -n -T) -eq 1 ]
+}
+
+@test "We shave a default synced folder thru NFS if B2D_NFS_SYNC is set" {
+	export B2D_NFS_SYNC=1
+	sed '/synced_folder/d' vagrantfile.orig > Vagrantfile
+	vagrant destroy -f
+	vagrant up
+}
+
+# @test "We shave a default synced folder thru vboxsf instead of NFS if NO_B2D_NFS_SYNC is set" {
+	
+# }
 
 @test "We can share folder thru rsync" {
 	sed 's/"virtualbox"/"rsync"/g' vagrantfile.orig > Vagrantfile
