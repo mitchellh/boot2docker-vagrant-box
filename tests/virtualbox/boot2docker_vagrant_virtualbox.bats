@@ -46,22 +46,22 @@
 }
 
 @test "The NFS client is started inside the VM" {
-	[ $(vagrant ssh -c 'ps aux | grep rpc.statd | wc -l' -- -n -T) -eq 1 ]
+	[ $(vagrant ssh -c 'ps aux | grep rpc.statd | wc -l' -- -n -T) -ge 1 ]
 }
 
-@test "We shave a default synced folder thru NFS if B2D_NFS_SYNC is set" {
+@test "We shave a default synced folder thru vboxsf instead of NFS if NO_B2D_NFS_SYNC is set" {
+	[ $(vagrant ssh -c 'df -h /vagrant | grep vagrant | grep none | wc -l' -- -n -T) -ge 1 ]
+}
+
+@test "We shave a NFS synced folder if B2D_NFS_SYNC is set (admin password required, will fail on Windows)" {
 	export B2D_NFS_SYNC=1
-	sed '/synced_folder/d' vagrantfile.orig > Vagrantfile
-	vagrant destroy -f
-	vagrant up
+	vagrant reload
+	[ $(vagrant ssh -c 'df -h /vagrant/ | grep vagrant | grep "192.168.10.1"' -- -n -T) -ge 1 ]
+	unset B2D_NFS_SYNC
 }
-
-# @test "We shave a default synced folder thru vboxsf instead of NFS if NO_B2D_NFS_SYNC is set" {
-	
-# }
 
 @test "We can share folder thru rsync" {
-	sed 's/"virtualbox"/"rsync"/g' vagrantfile.orig > Vagrantfile
+	sed 's/#SYNC_TOKEN/config.vm.synced_folder ".", "\/vagrant", type: "rsync"/g' vagrantfile.orig > Vagrantfile
 	vagrant reload
 	[ $( vagrant status | grep 'running' | wc -l ) -ge 1 ]
 	vagrant ssh -c "ls -l /vagrant/Vagrantfile"

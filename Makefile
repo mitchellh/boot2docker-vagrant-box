@@ -10,10 +10,16 @@ boot2docker.iso:
 
 test: test-virtualbox
 
-test-virtualbox:
+test-virtualbox: clean-test-virtualbox
 	@cd tests/virtualbox; bats --tap *.bats
 
-clean:
+clean: clean-build clean-test
+
+clean-build:
 	rm -rf *.iso *.box
+
+clean-test-virtualbox:
+	@cd tests/virtualbox;vagrant destroy -f
+	rm -rf tests/*/Vagrantfile tests/*/.vagrant
 
 .PHONY: clean prepare build test test-virtualbox

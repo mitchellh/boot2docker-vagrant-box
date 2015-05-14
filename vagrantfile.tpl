@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
   # Use NFS folder sync by default unless we are on Windows
-  if !ENV['NO_B2D_NFS_SYNC'] && (ENV['B2D_NFS_SYNC'] || !Vagrant::Util::Platform.windows?)
+  if ENV['B2D_NFS_SYNC']
     config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ["nolock", "vers=3", "udp"], id: "nfs-sync"
   end
 
