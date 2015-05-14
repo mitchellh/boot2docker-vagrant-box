@@ -56,7 +56,7 @@
 @test "We shave a NFS synced folder if B2D_NFS_SYNC is set (admin password required, will fail on Windows)" {
 	export B2D_NFS_SYNC=1
 	vagrant reload
-	[ $(vagrant ssh -c 'df -h /vagrant/ | grep vagrant | grep "192.168.10.1"' -- -n -T) -ge 1 ]
+	[ $(vagrant ssh -c 'df -h /vagrant | grep vagrant | grep 192.168.10.1 | wc -l' -- -n -T) -ge 1 ]
 	unset B2D_NFS_SYNC
 }
 
