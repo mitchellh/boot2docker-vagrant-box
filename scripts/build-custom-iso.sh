@@ -41,6 +41,9 @@ for TCZ_PACKAGE in popt rsync; do
 	umount "${MNT_TMP_DIR}"
 done
 
+# Add option to the /opt/bootlocal.sh script
+echo "/usr/local/etc/init.d/nfs-client start" | tee -a "${EXTRACT_DIR}/opt/bootlocal.sh"
+
 # Generate the new initrd.img in new iso dir
 cd "${EXTRACT_DIR}"
 find | cpio -o -H newc | xz -9 --format=lzma > "${NEW_ISO_DIR}/boot/initrd.img"

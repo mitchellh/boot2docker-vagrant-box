@@ -1,36 +1,37 @@
 # boot2docker Vagrant Box
 
 This repository contains the scripts necessary to create a Vagrant-compatible
-[boot2docker](https://github.com/boot2docker/boot2docker) box and is compatible with Docker v1.5. 
+[boot2docker](https://github.com/boot2docker/boot2docker) box and is compatible with Docker v1.6. 
 
-If you work solely
-with Docker, this box lets you keep your Vagrant workflow and work in the
-most minimal Docker environment possible.
+If you work solely with Docker, this box lets you keep your Vagrant workflow and work in the most minimal Docker environment possible.
 
 ## Usage
 
-The box is available on
-[Vagrant Cloud](https://vagrantcloud.com/dduportal/boot2docker), making
-it very easy to use it:
+The box is available on [Hashicrop's Atlas](https://atlas.hashicorp.com/dduportal/boxes/boot2docker), making it very easy to use it:
 
     $ vagrant init dduportal/boot2docker
     $ vagrant up
 
-If you want the actual box file, you can download it from the
-[tags page](https://github.com/dduportal/boot2docker-vagrant-box/tags).
+If you want the actual box source file, you can download it from the [tags page](https://github.com/dduportal/boot2docker-vagrant-box/tags).
 
-On OS X, to use the docker client, follow the directions here:
-http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to
-export `DOCKER_HOST`). You should then be able to to run `docker version` from
-the host.
+On OS X, to use the docker client, follow the directions here: http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to export `DOCKER_HOST`). You should then be able to to run `docker version` from the host. [Homebrew](http://brew.sh) can also a good installation medium with ```brew update && brew install docker```
 
-![Vagrant Up Boot2Docker](https://raw.github.com/mitchellh/boot2docker-vagrant-box/master/readme_image.gif)
 
 ## Tips & tricks
 
 * Vagrant synced folder has been tested with :
-  * vbox shared folder
-  * NFS
+  * vbox shared folder : This is default sharing system
+  * [rsync](https://docs.vagrantup.com/v2/synced-folders/rsync.html) : add this line to your Vagrantfile (it will overwrite the default vboxsf sync behaviour) :
+
+    ```ruby
+config.vm.synced_folder ".", "/vagrant", type: "rsync"
+    ```
+  * [NFS](https://docs.vagrantup.com/v2/synced-folders/nfs.html) : For now, use environment variable to enable NFS (Mac OS and Linux tested). It will ask for your admin password.
+
+    ```bash
+    $ export B2D_NFS_SYNC=1
+    $ vagrant up
+    ```
 
 * If you want to tune contents (custom profile, install tools inside the VM) that do not fit into the "vagrant provisionning" lifecycle combinded with the un-persistence of boot2docker, the "bootlocal" system has been extended :
   * The [boot2docker FaQ](https://github.com/boot2docker/boot2docker/blob/master/doc/FAQ.md) says that you can provide a custom script, named bootlocal.sh to execute things at the end of the boot.
@@ -60,10 +61,11 @@ do so in seconds.
 
 To build the box, first install the following prerequisites:
 
-  * [Packer](http://www.packer.io) (at least version 0.7.2)
-  * [VirtualBox](http://www.virtualbox.org) (at least version 4.3), VMware, or Parallels
-  * [Make](http://www.gnu.org/software/make/)
-  * [wget](http://www.gnu.org/software/wget/)
+  * [Make as workflow engine](http://www.gnu.org/software/make/)
+  * [Packer as vagrant basebox builder](http://www.packer.io) (at least version 0.7.5)
+  * [VirtualBox as main virtualization system](http://www.virtualbox.org) (at least version 4.3.28) [VMware and Parallels not implemented yet]
+  * [curl for downloading things](http://curl.haxx.se)
+  * [bats for testing](https://github.com/sstephenson/bats)
 
 Then follow the steps:
 
