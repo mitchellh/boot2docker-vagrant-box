@@ -28,6 +28,12 @@
 	vagrant ssh -c 'docker ps'
 }
 
+DOCKER_TARGET_VERSION=1.6.2
+@test "Docker is version DOCKER_TARGET_VERSION=${DOCKER_TARGET_VERSION}" {
+	DOCKER_VERSION=$(vagrant ssh -c "docker version | grep 'Client version' | awk '{print \$3}'" -- -n -T)
+	[ "${DOCKER_VERSION}" == "${DOCKER_TARGET_VERSION}" ]
+}
+
 @test "My bootlocal.sh script, should have been run at boot" {
 	[ $(vagrant ssh -c 'grep OK /tmp/token-boot-local | wc -l' -- -n -T) -eq 1 ]
 }
