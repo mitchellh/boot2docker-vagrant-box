@@ -1,4 +1,8 @@
 
+## 13/05/2015 (v1.6.1)
+- Moving boot2docker to 1.6.1 : https://github.com/boot2docker/boot2docker/releases/tag/v1.6.1
+- GH-10 : Making NFS working, environment variable powered
+
 ## 04/05/2015 (v1.6.0)
 - Moving boot2docker to 1.6.0 : https://github.com/boot2docker/boot2docker/releases/tag/v1.6.0
 
