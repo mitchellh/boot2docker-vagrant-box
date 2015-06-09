@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 2376, host: 2376, host_ip: "127.0.0.1", auto_correct: true, id: "docker-ssl"
 
   # Create a private network for accessing VM without NAT
-  config.vm.network "private_network", ip: "192.168.10.10", id: "default-network"
+  config.vm.network "private_network", ip: "192.168.10.10", id: "default-network", nic_type: "virtio"
 
   # Add bootlocal support
   if File.file?('./bootlocal.sh')

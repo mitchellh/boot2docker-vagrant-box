@@ -9,7 +9,8 @@
     "builders": [{
         "type": "virtualbox-iso",
         "vboxmanage": [
-            ["modifyvm","{{.Name}}","--memory","1536"]
+            ["modifyvm","{{.Name}}","--memory","1536"],
+            ["modifyvm","{{.Name}}","--nictype1","virtio"]
         ],
         "iso_url": "{{user `B2D_ISO_FILE`}}",
         "iso_checksum_type": "md5",
