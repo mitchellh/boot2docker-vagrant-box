@@ -1,4 +1,4 @@
-BOOT2DOCKER_VERSION = 1.6.2
+BOOT2DOCKER_VERSION = 1.7.0
 
 all: clean build test
 
