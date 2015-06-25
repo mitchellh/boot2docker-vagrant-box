@@ -1,8 +1,20 @@
 {
+    "push": {
+        "name": "dduportal/boot2docker"
+    },
+    "variables": {
+        "B2D_ISO_FILE": "boot2docker.iso",
+        "B2D_ISO_CHECKSUM": "e52d0ec9b0433520232457f141c19d70"
+    },
     "builders": [{
         "type": "virtualbox-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "vboxmanage": [
+            ["modifyvm","{{.Name}}","--memory","1536"],
+            ["modifyvm","{{.Name}}","--nictype1","virtio"]
+        ],
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
         "guest_additions_mode": "attach",
         "guest_os_type": "Linux_64",
@@ -11,8 +23,12 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "vmware-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "vmx_data" : {
+            "memsize": "1536"
+          },
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
         "guest_os_type": "other3xlinux-64",
         "ssh_username": "docker",
@@ -20,23 +36,33 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "parallels-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `B2D_ISO_FILE`}}",
+        "iso_checksum_type": "md5",
+        "iso_checksum": "{{user `B2D_ISO_CHECKSUM`}}",
         "boot_wait": "5s",
-        "guest_os_distribution": "linux",
+        "guest_os_type": "linux",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "parallels_tools_mode": "disable"
     }],
-
-    "provisioners": [{
-      "type": "shell",
-      "inline": ["mkfs.ext4 -F -L boot2docker-data /dev/sda"]
-    }],
-
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "boot2docker.iso",
+            "destination": "/tmp/boot2docker-orig.iso"
+        },
+        {
+            "type": "shell",
+            "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "scripts": [
+                "./scripts/build-custom-iso.sh",
+                "./scripts/b2d-provision.sh"
+            ]
+        }
+    ],
     "post-processors": [{
         "type": "vagrant",
-        "include": ["boot2docker-vagrant.iso"],
         "vagrantfile_template": "vagrantfile.tpl",
         "output": "boot2docker_{{.Provider}}.box"
     }]

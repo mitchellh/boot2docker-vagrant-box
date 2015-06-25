@@ -1,14 +1,17 @@
-build: boot2docker-vagrant.iso
-	time (packer build -parallel=false template.json)
+BOOT2DOCKER_VERSION = 1.7.0
 
-prepare: clean boot2docker-vagrant.iso
+all: clean build test
 
-boot2docker-vagrant.iso:
-	vagrant up
-	vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
-	vagrant destroy --force
+build: boot2docker.iso
+	packer build -parallel=false -only=virtualbox-iso template.json
+
+boot2docker.iso:
+	curl -L -o boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v$(BOOT2DOCKER_VERSION)/boot2docker.iso
+
+test:
+	@cd tests/virtualbox; bats --tap *.bats
 
 clean:
 	rm -rf *.iso *.box
 
-.PHONY: clean prepare build
+.PHONY: clean build test all
