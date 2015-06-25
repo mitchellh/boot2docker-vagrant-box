@@ -16,6 +16,8 @@ mkdir -p "${NEW_ISO_DIR}" "${EXTRACT_DIR}" "${MNT_TMP_DIR}" /mnt/syslinux
 # Note that even if the install worked, tce-loa return exit code to 1...
 su -c "tce-load -w -i mkisofs-tools" docker || :
 su -c "tce-load -w -i compiletc" docker || :
+su -c "tce-load -w -i autoconf" docker || :
+
 curl -L -o /tmp/syslinux.tcz http://tinycorelinux.net/6.x/x86/tcz/syslinux.tcz
 mount /tmp/syslinux.tcz /mnt/syslinux -o loop,ro
 
@@ -47,11 +49,6 @@ done
 # Add option to the /opt/bootlocal.sh script
 echo "/usr/local/etc/init.d/nfs-client start" | tee -a "${EXTRACT_DIR}/opt/bootlocal.sh"
 
-# Generate the new initrd.img in new iso dir
-cd "${EXTRACT_DIR}"
-find | cpio -o -H newc | /usr/local/bin/xz -9 --format=lzma > "${NEW_ISO_DIR}/boot/initrd.img"
-cd -
-
 # Last part will need to recompile ourself xorriso since syslinux (with isohybrid) nor xorriso exists as it in TCL in 64Bits
 
 XORRISO_VERSION=1.4.0
@@ -63,11 +60,22 @@ make
 make install
 cd -
 
+# Rsync to install inside the iso
+RSYNC_VERSION=3.0.0
+curl -L -o "/tmp/rsync-${RSYNC_VERSION}.tar.gz" "https://download.samba.org/pub/rsync/src/rsync-${RSYNC_VERSION}.tar.gz"
+tar -x -z -f "/tmp/rsync-${RSYNC_VERSION}.tar.gz" -C /tmp/
+cd "/tmp/rsync-${RSYNC_VERSION}"
+./configure --prefix "${EXTRACT_DIR}"
+make
+make install
+cd -
+
+# Generate the new initrd.img in new iso dir
+cd "${EXTRACT_DIR}"
+find | cpio -o -H newc | /usr/local/bin/xz -9 --format=lzma > "${NEW_ISO_DIR}/boot/initrd.img"
+cd -
+
 # Create our new ISO in MBR-hybrid format with Xorriso
-# /usr/local/bin/xorriso -l -J -R -V "Custom Boot2docker v$(cat ${NEW_ISO_DIR}/version)" \
-# 	-no-emul-boot -boot-load-size 4 \
-#  	-boot-info-table -b boot/isolinux/isolinux.bin \
-#  	-c boot/isolinux/boot.cat -o "${NEW_B2D_ISO_PATH}" "${NEW_ISO_DIR}"
 
 /usr/local/bin/xorriso  \
     -publisher "Damien DUPORTAL" \
