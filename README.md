@@ -49,5 +49,8 @@ $ packer build template.json
 ...
 ```
 
+Additional docker arguments, such as adding an insecure repository, can be done by setting the `EXTRA_ARGS` environment variable 
+when running build-iso.sh.
+
 You can restrict only VirtualBox, VMware, or Parallels by specifying the `-only` flag
 to Packer.
