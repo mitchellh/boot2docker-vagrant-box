@@ -6,7 +6,9 @@
 set -e
 set -x
 
-B2D_URL="https://github.com/boot2docker/boot2docker/releases/download/v1.3.0/boot2docker.iso"
+B2D_URL="https://github.com/boot2docker/boot2docker/releases/download/v1.7.0/boot2docker.iso"
+RSYNC_URL="https://github.com/cameronbrunner/tinycorelinux-extensions/releases/download/rsync-0.0.1/rsync.tcz"
+echo "Building with EXTRA_ARGS: $EXTRA_ARGS"
 
 apt-get -y update
 apt-get install -y genisoimage
@@ -16,6 +18,9 @@ apt-get install -y genisoimage
 #--------------------------------------------------------------------
 # Download boot2docker
 wget -O b2d.iso ${B2D_URL}
+if [ ! -f /vagrant/rsync.tcz ];then
+wget -O /vagrant/rsync.tcz ${RSYNC_URL}
+fi
 
 # Mount it up
 rm -rf /tmp/boot
@@ -52,6 +57,23 @@ chmod +x ${EXTRACT_DIR}/etc/rc.d/vagrant
 
 # Configure boot to add public key
 echo "/etc/rc.d/vagrant" >> ${EXTRACT_DIR}/opt/bootsync.sh
+
+# Disable TLS
+cat <<EOF > ${EXTRACT_DIR}/etc/rc.d/docker-profile
+mkdir -p /var/lib/boot2docker
+echo 'export DOCKER_TLS=no' > /var/lib/boot2docker/profile
+echo 'export EXTRA_ARGS="$EXTRA_ARGS"' >> /var/lib/boot2docker/profile
+/etc/init.d/docker stop
+/etc/init.d/docker start
+EOF
+chmod +x ${EXTRACT_DIR}/etc/rc.d/docker-profile
+echo "/etc/rc.d/docker-profile" >> ${EXTRACT_DIR}/opt/bootsync.sh
+
+# Script install 64 bit rsync package
+cp /vagrant/rsync.tcz ${EXTRACT_DIR}/opt
+echo "su - docker -c 'tce-load -i /opt/rsync.tcz'" > ${EXTRACT_DIR}/etc/rc.d/rsync
+chmod +x ${EXTRACT_DIR}/etc/rc.d/rsync
+echo "/etc/rc.d/rsync" >> ${EXTRACT_DIR}/opt/bootsync.sh
 
 #--------------------------------------------------------------------
 # Package
