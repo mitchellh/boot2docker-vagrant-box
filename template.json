@@ -16,7 +16,8 @@
         "guest_os_type": "Linux_64",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "headless": true
     }, {
         "type": "vmware-iso",
         "iso_url": "{{user `url`}}",
