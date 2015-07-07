@@ -1,8 +1,14 @@
 {
+    "variables": {
+        "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.7.0/boot2docker.iso",
+        "checksum": "3ebc29aecabc990c4303b9cc6ab26fa8acc673bfbfae3f2fbd8d827c0ff48183"
+    },
+
     "builders": [{
         "type": "virtualbox-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `url`}}",
+        "iso_checksum_type": "sha256",
+        "iso_checksum": "{{user `checksum`}}",
         "boot_wait": "5s",
         "guest_additions_mode": "attach",
         "guest_os_type": "Linux_64",
@@ -11,8 +17,9 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "vmware-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `url`}}",
+        "iso_checksum_type": "sha256",
+        "iso_checksum": "{{user `checksum`}}",
         "boot_wait": "5s",
         "guest_os_type": "other3xlinux-64",
         "ssh_username": "docker",
@@ -20,8 +27,9 @@
         "shutdown_command": "sudo poweroff"
     }, {
         "type": "parallels-iso",
-        "iso_url": "boot2docker-vagrant.iso",
-        "iso_checksum_type": "none",
+        "iso_url": "{{user `url`}}",
+        "iso_checksum_type": "sha256",
+        "iso_checksum": "{{user `checksum`}}",
         "boot_wait": "5s",
         "guest_os_distribution": "linux",
         "ssh_username": "docker",
@@ -30,13 +38,16 @@
     }],
 
     "provisioners": [{
+       "type": "shell-local",
+       "command": "./download.sh '{{user `url`}}' {{user `checksum`}}"
+    }, {
       "type": "shell",
       "inline": ["mkfs.ext4 -F -L boot2docker-data /dev/sda"]
     }],
 
     "post-processors": [{
         "type": "vagrant",
-        "include": ["boot2docker-vagrant.iso"],
+        "include": ["boot2docker.iso"],
         "vagrantfile_template": "vagrantfile.tpl",
         "output": "boot2docker_{{.Provider}}.box"
     }]
