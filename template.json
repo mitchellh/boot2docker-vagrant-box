@@ -79,7 +79,8 @@
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "vmware_desktop",
-            "version": "{{user `version`}}.{{user `number`}}"
+            "version": "{{user `version`}}.{{user `number`}}",
+            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
         }
     },{
         "type": "atlas",
@@ -88,7 +89,8 @@
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "virtualbox",
-            "version": "{{user `version`}}.{{user `number`}}"
+            "version": "{{user `version`}}.{{user `number`}}",
+            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
         }
     }]],
 
