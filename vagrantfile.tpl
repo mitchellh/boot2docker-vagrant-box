@@ -10,6 +10,14 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 2375, host: 2375,
     host_ip: "127.0.0.1", auto_correct: true, id: "docker"
 
+  # b2d doesn't support NFS
+  config.nfs.functional = false
+
+  # b2d doesn't persist filesystem between reboots
+  if config.ssh.respond_to?(:insert_key)
+    config.ssh.insert_key = false
+  end
+
   # Attach the ISO
   config.vm.provider "virtualbox" do |v|
     v.customize "pre-boot", [
@@ -20,6 +28,11 @@ Vagrant.configure("2") do |config|
       "--type", "dvddrive",
       "--medium", File.expand_path("../boot2docker.iso", __FILE__),
     ]
+
+    # On VirtualBox, we don't have guest additions or a functional vboxsf
+    # in TinyCore Linux, so tell Vagrant that so it can be smarter.
+    v.check_guest_additions = false
+    v.functional_vboxsf     = false
   end
 
   ["vmware_fusion", "vmware_workstation"].each do |vmware|
@@ -28,6 +41,10 @@ Vagrant.configure("2") do |config|
       v.vmx["ide1:0.present"]    = "TRUE"
       v.vmx["ide1:0.fileName"]   = File.expand_path("../boot2docker.iso", __FILE__)
       v.vmx["ide1:0.deviceType"] = "cdrom-image"
+
+      if v.respond_to?(:functional_hgfs=)
+        v.functional_hgfs = false
+      end
     end
   end
 
