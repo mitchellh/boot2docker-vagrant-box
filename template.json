@@ -79,5 +79,10 @@
             "provider": "virtualbox",
             "version": "{{user `version`}}.{{user `number`}}"
         }
-    }]]
+    }]],
+
+    "push": {
+        "name": "hashicorp/boot2docker",
+        "vcs": true
+    }
 }
