@@ -42,7 +42,16 @@
        "command": "./download.sh '{{user `url`}}' {{user `checksum`}}"
     }, {
       "type": "shell",
-      "inline": ["mkfs.ext4 -F -L boot2docker-data /dev/sda"]
+      "inline": [
+          "mkfs.ext4 -F -L boot2docker-data /dev/sda",
+          "sudo mkdir /mnt/sda",
+          "sudo mount /dev/sda /mnt/sda",
+          "sudo mkdir -p /mnt/sda/var/lib/boot2docker",
+          "sudo echo 'export DOCKER_TLS=no' > /tmp/profile",
+          "sudo mv /tmp/profile /mnt/sda/var/lib/boot2docker/profile",
+          "sudo chown root:root /mnt/sda/var/lib/boot2docker/profile",
+          "sync"
+      ]
     }],
 
     "post-processors": [{
