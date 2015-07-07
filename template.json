@@ -74,6 +74,15 @@
         "output": "boot2docker_{{.Provider}}.box"
     },{
         "type": "atlas",
+        "only": ["vmware-iso"],
+        "artifact": "hashicorp/boot2docker",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+            "provider": "vmware_desktop",
+            "version": "{{user `version`}}.{{user `number`}}"
+        }
+    },{
+        "type": "atlas",
         "only": ["virtualbox-iso"],
         "artifact": "hashicorp/boot2docker",
         "artifact_type": "vagrant.box",
