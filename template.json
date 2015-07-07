@@ -44,6 +44,7 @@
        "command": "chmod +x ./download.sh && ./download.sh '{{user `url`}}' {{user `checksum`}}"
     }, {
       "type": "shell",
+      "except": ["vmware-iso"],
       "inline": [
           "mkfs.ext4 -F -L boot2docker-data /dev/sda",
           "sudo mkdir /mnt/sda",
@@ -54,6 +55,16 @@
           "sudo chown root:root /mnt/sda/var/lib/boot2docker/profile",
           "sync"
       ]
+    }, {
+      "type": "shell",
+      "only": ["vmware-iso"],
+      "inline": [
+          "sudo mkdir -p /mnt/sda1/var/lib/boot2docker",
+          "sudo echo 'export DOCKER_TLS=no' > /tmp/profile",
+          "sudo mv /tmp/profile /mnt/sda1/var/lib/boot2docker/profile",
+          "sudo chown root:root /mnt/sda1/var/lib/boot2docker/profile",
+          "sync"
+      ]
     }],
 
     "post-processors": [[{
@@ -61,15 +72,6 @@
         "include": ["boot2docker.iso"],
         "vagrantfile_template": "vagrantfile.tpl",
         "output": "boot2docker_{{.Provider}}.box"
-    },{
-        "type": "atlas",
-        "only": ["vmware-iso"],
-        "artifact": "hashicorp/boot2docker",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-            "provider": "vmware_desktop",
-            "version": "{{user `version`}}.{{user `number`}}"
-        }
     },{
         "type": "atlas",
         "only": ["virtualbox-iso"],
