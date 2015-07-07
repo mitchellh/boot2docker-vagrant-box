@@ -2,7 +2,7 @@
     "variables": {
         "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.7.0/boot2docker.iso",
         "checksum": "3ebc29aecabc990c4303b9cc6ab26fa8acc673bfbfae3f2fbd8d827c0ff48183",
-        "version": "1.7.0",
+        "version": "1.7",
         "number": "{{env `ATLAS_BUILD_NUMBER`}}"
     },
 
