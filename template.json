@@ -41,7 +41,7 @@
 
     "provisioners": [{
        "type": "shell-local",
-       "command": "./download.sh '{{user `url`}}' {{user `checksum`}}"
+       "command": "chmod +x ./download.sh && ./download.sh '{{user `url`}}' {{user `checksum`}}"
     }, {
       "type": "shell",
       "inline": [
