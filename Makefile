@@ -9,7 +9,7 @@ boot2docker-vagrant.iso:
 	vagrant destroy --force
 
 clean:
-	rm -rf *.iso *.box
+	#rm -rf *.iso *.box
 	rm -rf .vagrant
 	rm -rf packer_cache
 
