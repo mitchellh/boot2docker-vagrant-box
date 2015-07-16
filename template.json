@@ -78,7 +78,7 @@
     }, {
         "type": "atlas",
         "only": ["vmware-iso"],
-        "artifact": "bhaskarvk/boot2docker",
+        "artifact": "hashicorp/boot2docker",
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "vmware_desktop",
@@ -88,7 +88,7 @@
     }, {
         "type": "atlas",
         "only": ["virtualbox-iso"],
-        "artifact": "bhaskarvk/boot2docker",
+        "artifact": "hashicorp/boot2docker",
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "virtualbox",
@@ -98,7 +98,7 @@
     }, {
         "type": "atlas",
         "only": ["parallels-iso"],
-        "artifact": "bhaskarvk/boot2docker",
+        "artifact": "hashicorp/boot2docker",
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "parallels",
@@ -108,7 +108,7 @@
     } ]],
 
     "push": {
-        "name": "bhaskarvk/boot2docker",
+        "name": "hashicorp/boot2docker",
         "vcs": true
     }
 }
