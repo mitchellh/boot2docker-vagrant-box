@@ -1,14 +1,12 @@
-build: boot2docker-vagrant.iso
+build:
 	time (packer build -parallel=false template.json)
 
-prepare: clean boot2docker-vagrant.iso
-
-boot2docker-vagrant.iso:
-	vagrant up
-	vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
-	vagrant destroy --force
+prepare: clean build
 
 clean:
 	rm -rf *.iso *.box
+	rm -rf .vagrant
+	rm -rf packer_cache
+
 
 .PHONY: clean prepare build
