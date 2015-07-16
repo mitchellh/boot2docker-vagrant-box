@@ -82,8 +82,10 @@
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "vmware_desktop",
-            "version": "{{user `version`}}-{{user `number`}}",
-            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
+            "version": "{{user `version`}}",
+            "build_number": "{{user `number`}}",
+            "created_at" : "{{isotime}}",
+            "description": "boot2docker v{{user `version`}}."
         }
     }, {
         "type": "atlas",
@@ -92,18 +94,10 @@
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "virtualbox",
-            "version": "{{user `version`}}-{{user `number`}}",
-            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
-        }
-    }, {
-        "type": "atlas",
-        "only": ["parallels-iso"],
-        "artifact": "bhaskarvk/boot2docker",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-            "provider": "parallels",
-            "version": "{{user `version`}}-{{user `number`}}",
-            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
+            "version": "{{user `version`}}",
+            "build_number": "{{user `number`}}",
+            "created_at" : "{{isotime}}",
+            "description": "boot2docker v{{user `version`}}."
         }
     } ]],
 
