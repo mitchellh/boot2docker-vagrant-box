@@ -8,14 +8,14 @@ most minimal Docker environment possible.
 ## Usage
 
 The box is available on
-[Vagrant Cloud](https://vagrantcloud.com/mitchellh/boot2docker), making
+[Atlas](https://atlas.hashicorp.com/bhaskarvk/boxes/boot2docker), making
 it very easy to use it:
 
-    $ vagrant init mitchellh/boot2docker
+    $ vagrant init bhaskarvk/boot2docker
     $ vagrant up
 
 If you want the actual box file, you can download it from the
-[releases page](https://github.com/mitchellh/boot2docker-vagrant-box/releases).
+[releases page](https://github.com/bhaskarvk/boot2docker-vagrant-box/releases).
 
 On OS X, to use the docker client, follow the directions here:
 http://docs.docker.io/installation/mac/#docker-os-x-client (you'll need to
@@ -39,14 +39,7 @@ To build the box, first install the following prerequisites:
 Then follow the steps:
 
 ```
-$ vagrant up
-...
-$ vagrant ssh -c 'cd /vagrant && sudo ./build-iso.sh'
-...
-$ vagrant destroy --force
-...
 $ packer build template.json
-...
 ```
 
 You can restrict only VirtualBox, VMware, or Parallels by specifying the `-only` flag
