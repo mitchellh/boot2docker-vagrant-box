@@ -2,4 +2,4 @@
 .vagrant/
 packer_cache/
 *.box
-boot2docker.iso
+*.iso

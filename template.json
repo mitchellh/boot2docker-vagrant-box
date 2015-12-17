@@ -1,8 +1,8 @@
 {
     "variables": {
-        "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.7.0/boot2docker.iso",
-        "checksum": "3ebc29aecabc990c4303b9cc6ab26fa8acc673bfbfae3f2fbd8d827c0ff48183",
-        "version": "1.7",
+        "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.9.1/boot2docker.iso",
+        "checksum": "d1ac84f01f9e3bc9eaf68a38afdbe2accd11b1d6c678d107018b545552cba199",
+        "version": "1.9.1",
         "number": "{{env `ATLAS_BUILD_NUMBER`}}"
     },
 
@@ -26,14 +26,17 @@
         "guest_os_type": "other3xlinux-64",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
-        "shutdown_command": "sudo poweroff"
+        "shutdown_command": "sudo poweroff",
+        "tools_upload_flavor" : "linux"
     }, {
         "type": "parallels-iso",
         "iso_url": "{{user `url`}}",
         "iso_checksum_type": "sha256",
         "iso_checksum": "{{user `checksum`}}",
         "boot_wait": "5s",
-        "guest_os_distribution": "linux",
+        "guest_os_type": "linux",
+        "hard_drive_interface": "ide",
+        "parallels_tools_flavor": "lin",
         "ssh_username": "docker",
         "ssh_password": "tcuser",
         "shutdown_command": "sudo poweroff"
@@ -67,35 +70,39 @@
       ]
     }],
 
-    "post-processors": [[{
+    "post-processors": [[ {
         "type": "vagrant",
         "include": ["boot2docker.iso"],
         "vagrantfile_template": "vagrantfile.tpl",
         "output": "boot2docker_{{.Provider}}.box"
-    },{
+    }, {
         "type": "atlas",
         "only": ["vmware-iso"],
-        "artifact": "hashicorp/boot2docker",
+        "artifact": "bhaskarvk/boot2docker",
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "vmware_desktop",
-            "version": "{{user `version`}}.{{user `number`}}",
-            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
+            "version": "{{user `version`}}",
+            "build_number": "{{user `number`}}",
+            "created_at" : "{{isotime}}",
+            "description": "boot2docker v{{user `version`}}."
         }
-    },{
+    }, {
         "type": "atlas",
         "only": ["virtualbox-iso"],
-        "artifact": "hashicorp/boot2docker",
+        "artifact": "bhaskarvk/boot2docker",
         "artifact_type": "vagrant.box",
         "metadata": {
             "provider": "virtualbox",
-            "version": "{{user `version`}}.{{user `number`}}",
-            "description": "boot2docker v{{user `version`}}. The last part of the version is just a build number we increment as we make patch changes to the Vagrant box."
+            "version": "{{user `version`}}",
+            "build_number": "{{user `number`}}",
+            "created_at" : "{{isotime}}",
+            "description": "boot2docker v{{user `version`}}."
         }
-    }]],
+    } ]],
 
     "push": {
-        "name": "hashicorp/boot2docker",
+        "name": "bhaskarvk/boot2docker",
         "vcs": true
     }
 }

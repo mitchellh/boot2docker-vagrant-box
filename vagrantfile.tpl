@@ -41,7 +41,14 @@ Vagrant.configure("2") do |config|
       v.vmx["ide1:0.present"]    = "TRUE"
       v.vmx["ide1:0.fileName"]   = File.expand_path("../boot2docker.iso", __FILE__)
       v.vmx["ide1:0.deviceType"] = "cdrom-image"
-
+      v.name = "boot2docker"
+      v.vmx["memsize"] = "1500"
+      v.gui = false
+      v.vmx["numvcpus"]             = "2"
+      v.vmx["vhv.enable"]           = "TRUE"
+      v.vmx["vpmc.enable"]          = "TRUE"
+      v.vmx["hard-disk.hostBuffer"] = "enabled"
+      v.vmx["vmx.buildType"]        = "release"
       if v.respond_to?(:functional_hgfs=)
         v.functional_hgfs = false
       end
