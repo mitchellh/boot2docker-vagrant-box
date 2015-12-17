@@ -1,8 +1,8 @@
 {
     "variables": {
-        "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.8.3/boot2docker.iso",
-        "checksum": "7d9e0b4a4cb6a4075ffcff66e5f646bf4115c393b45df82264a3771f1566df27",
-        "version": "1.8.3",
+        "url": "https://github.com/boot2docker/boot2docker/releases/download/v1.9.1/boot2docker.iso",
+        "checksum": "d1ac84f01f9e3bc9eaf68a38afdbe2accd11b1d6c678d107018b545552cba199",
+        "version": "1.9.1",
         "number": "{{env `ATLAS_BUILD_NUMBER`}}"
     },
 
